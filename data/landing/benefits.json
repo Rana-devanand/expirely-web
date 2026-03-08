@@ -1,0 +1,23 @@
+{
+  "benefits": {
+    "badge": "BENEFITS",
+    "title": "Why choose Expirely?",
+    "items": [
+      {
+        "icon": "TrendingDown",
+        "title": "Reduce Product Waste",
+        "description": "Stop throwing away expired food and products. Track everything effortlessly."
+      },
+      {
+        "icon": "DollarSign",
+        "title": "Save Money",
+        "description": "By using products before they expire, you'll significantly cut household costs."
+      },
+      {
+        "icon": "Box",
+        "title": "Organize Your Items",
+        "description": "Keep a clean, categorized inventory of all household and business products."
+      }
+    ]
+  }
+}

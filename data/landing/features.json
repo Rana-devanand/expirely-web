@@ -1,0 +1,39 @@
+{
+  "features": {
+    "badge": "FEATURES",
+    "title": "Everything you need to track expiry dates",
+    "description": "Powerful features designed to help you manage product expirations effortlessly.",
+    "items": [
+      {
+        "icon": "Clock",
+        "title": "Expiry Tracking",
+        "description": "Track all your product expiration dates in one centralized dashboard."
+      },
+      {
+        "icon": "Bell",
+        "title": "Smart Reminders",
+        "description": "Get notified before products expire so you never waste anything."
+      },
+      {
+        "icon": "Scan",
+        "title": "Barcode Scanning",
+        "description": "Quickly add products by scanning barcodes with your phone camera."
+      },
+      {
+        "icon": "History",
+        "title": "Product History",
+        "description": "View your complete product history and consumption patterns."
+      },
+      {
+        "icon": "Shield",
+        "title": "Notification Alerts",
+        "description": "Customizable alert schedules - daily, weekly, or per product."
+      },
+      {
+        "icon": "Package",
+        "title": "Category Management",
+        "description": "Organize products by category for easy browsing and filtering."
+      }
+    ]
+  }
+}

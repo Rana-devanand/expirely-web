@@ -1,0 +1,39 @@
+{
+  "footer": {
+    "cta": {
+      "title": "Ready to stop wasting products?",
+      "description": "Join thousands of users who are saving money and reducing waste with Expirely.",
+      "button": {
+        "text": "Download Now",
+        "link": "#"
+      }
+    },
+    "brand": {
+      "name": "Expirely",
+      "description": "Smart product expiry management for everyone."
+    },
+    "links": [
+      {
+        "title": "Product",
+        "items": [
+          { "name": "Features", "href": "#features" },
+          { "name": "Pricing", "href": "#" },
+          { "name": "Download", "href": "#" }
+        ]
+      },
+      {
+        "title": "Legal",
+        "items": [
+          { "name": "Privacy Policy", "href": "#" },
+          { "name": "Terms of Service", "href": "#" }
+        ]
+      }
+    ],
+    "contact": {
+      "title": "Contact",
+      "email": "hello@expirely.app",
+      "adminLogin": "Admin Login"
+    },
+    "copyright": "2026 Expirely. All rights reserved."
+  }
+}

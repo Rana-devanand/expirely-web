@@ -1,0 +1,28 @@
+{
+  "howItWorks": {
+    "badge": "HOW IT WORKS",
+    "title": "Simple steps to get started",
+    "steps": [
+      {
+        "number": "01",
+        "title": "Add Product",
+        "description": "Scan a barcode or manually add your product details and expiry date."
+      },
+      {
+        "number": "02",
+        "title": "Track Expiry",
+        "description": "View all your products sorted by expiration date in a clean timeline."
+      },
+      {
+        "number": "03",
+        "title": "Receive Notification",
+        "description": "Get smart reminders before your products expire."
+      },
+      {
+        "number": "04",
+        "title": "Avoid Waste",
+        "description": "Use products on time, save money, and reduce waste."
+      }
+    ]
+  }
+}
