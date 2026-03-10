@@ -1,0 +1,27 @@
+{
+  "faq": {
+    "title": "Frequently asked questions",
+    "questions": [
+      {
+        "question": "Is Expirely free to use?",
+        "answer": "Yes, Expirely is completely free for individual users to track their home products."
+      },
+      {
+        "question": "Which platforms is Expirely available on?",
+        "answer": "Expirely is available on iOS, Android, and via our Web App for seamless tracking across devices."
+      },
+      {
+        "question": "How does barcode scanning work?",
+        "answer": "Simply point your camera at any product barcode, and Expirely will automatically fetch the details."
+      },
+      {
+        "question": "Can I share lists with family members?",
+        "answer": "Yes, you can create shared households to manage products together with your family or roommates."
+      },
+      {
+        "question": "Is my data secure?",
+        "answer": "Absolutely. We use industry-standard encryption to ensure your personal and inventory data is always protected."
+      }
+    ]
+  }
+}

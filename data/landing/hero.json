@@ -1,0 +1,19 @@
+{
+  "hero": {
+    "badge": "Smart Product Management",
+    "title": "Never Forget Product Expiry",
+    "highlight": "Again",
+    "description": "Track product expiration dates, receive smart notifications, and reduce waste — all from one beautiful app.",
+    "buttons": {
+      "primary": {
+        "text": "Download App",
+        "link": "#"
+      },
+      "secondary": {
+        "text": "Get Started",
+        "link": "#"
+      }
+    },
+    "image": "/mockup-phone.png"
+  }
+}
