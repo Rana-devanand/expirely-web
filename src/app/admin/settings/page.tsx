@@ -17,22 +17,39 @@ import {
 } from 'lucide-react';
 import AdminSidebar from '@/components/admin/AdminSidebar';
 import AdminHeader from '@/components/admin/AdminHeader';
-
-const INITIAL_CATEGORIES = ['Food', 'Dairy', 'Medicine', 'Cosmetics', 'Household', 'Beverages', 'Supplements'];
+import { 
+  useGetAllCategoriesQuery, 
+  useCreateCategoryMutation, 
+  useDeleteCategoryMutation 
+} from '@/store/api/categoryApi';
+import { toast } from 'react-hot-toast';
 
 export default function AdminSettingsPage() {
   const [isSidebarOpen, setIsSidebarOpen] = useState(true);
-  const [categories, setCategories] = useState(INITIAL_CATEGORIES);
   const [newCategory, setNewCategory] = useState('');
 
-  const removeCategory = (cat: string) => {
-    setCategories(categories.filter(c => c !== cat));
+  const { data: categories = [], isLoading: isLoadingCategories } = useGetAllCategoriesQuery();
+  const [createCategory] = useCreateCategoryMutation();
+  const [deleteCategory] = useDeleteCategoryMutation();
+
+  const handleRemoveCategory = async (id: string) => {
+    try {
+      await deleteCategory(id).unwrap();
+      toast.success('Category removed');
+    } catch (err) {
+      toast.error('Failed to remove category');
+    }
   };
 
-  const addCategory = () => {
-    if (newCategory.trim() && !categories.includes(newCategory.trim())) {
-      setCategories([...categories, newCategory.trim()]);
-      setNewCategory('');
+  const handleAddCategory = async () => {
+    if (newCategory.trim()) {
+      try {
+        await createCategory({ name: newCategory.trim() }).unwrap();
+        setNewCategory('');
+        toast.success('Category added globally');
+      } catch (err) {
+        toast.error('Failed to add category');
+      }
     }
   };
 
@@ -58,11 +75,11 @@ export default function AdminSettingsPage() {
               </h3>
               
               <div className="flex flex-wrap gap-2 mb-6">
-                {categories.map((cat) => (
-                  <div key={cat} className="flex items-center gap-2 bg-slate-800/50 border border-slate-700/50 px-3 py-1.5 rounded-xl group transition-all">
-                    <span className="text-xs font-medium text-slate-300 group-hover:text-slate-100">{cat}</span>
+                {categories.map((cat: any) => (
+                  <div key={cat.id} className="flex items-center gap-2 bg-slate-800/50 border border-slate-700/50 px-3 py-1.5 rounded-xl group transition-all">
+                    <span className="text-xs font-medium text-slate-300 group-hover:text-slate-100">{cat.name}</span>
                     <button 
-                      onClick={() => removeCategory(cat)}
+                      onClick={() => handleRemoveCategory(cat.id)}
                       className="p-0.5 hover:bg-red-500/20 rounded-md text-slate-500 hover:text-red-400 transition-colors"
                     >
                       <X className="w-3 h-3" />
@@ -78,10 +95,10 @@ export default function AdminSettingsPage() {
                   className="flex-1 bg-slate-900/50 border border-slate-800 rounded-xl px-4 py-2 text-sm outline-none focus:ring-2 focus:ring-emerald-500/20 text-slate-200 placeholder:text-slate-600"
                   value={newCategory}
                   onChange={(e) => setNewCategory(e.target.value)}
-                  onKeyPress={(e) => e.key === 'Enter' && addCategory()}
+                  onKeyPress={(e) => e.key === 'Enter' && handleAddCategory()}
                 />
                 <button 
-                  onClick={addCategory}
+                  onClick={handleAddCategory}
                   className="bg-[#10b981] text-white px-4 py-2 rounded-xl font-bold text-xs hover:bg-[#059669] transition-all active:scale-[0.98]"
                 >
                   Add

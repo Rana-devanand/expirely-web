@@ -16,20 +16,49 @@ import {
 import AdminSidebar from '@/components/admin/AdminSidebar';
 import AdminHeader from '@/components/admin/AdminHeader';
 
-import { useGetAdminReportsQuery } from '@/store/api/reportApi';
+import { useGetAdminReportsQuery, useLazyExportReportQuery } from '@/store/api/reportApi';
 import { Loader2 } from 'lucide-react';
+import { toast } from 'react-hot-toast';
 
 export default function AdminReportsPage() {
   const [isSidebarOpen, setIsSidebarOpen] = useState(true);
   const { data: reportsResponse, isLoading } = useGetAdminReportsQuery();
+  const [triggerExport, { isFetching: isExporting }] = useLazyExportReportQuery();
+
+  const handleDownload = async (type: string, format: string) => {
+    if (format === 'pdf') {
+      toast('PDF Export is coming soon. Please use CSV for now.', { icon: 'ℹ️' });
+      return;
+    }
+
+    const toastId = toast.loading(`Generating ${type} report...`);
+    try {
+      const blob = await triggerExport({ type, format }).unwrap();
+      if (blob) {
+        const url = window.URL.createObjectURL(blob);
+        const link = document.createElement('a');
+        link.href = url;
+        link.setAttribute('download', `${type}_report_${new Date().toISOString().split('T')[0]}.${format}`);
+        document.body.appendChild(link);
+        link.click();
+        link.remove();
+        window.URL.revokeObjectURL(url);
+        toast.success(`${type.charAt(0).toUpperCase() + type.slice(1)} report downloaded!`, { id: toastId });
+      }
+    } catch (err) {
+      toast.error('Failed to download report.', { id: toastId });
+    }
+  };
+
   const reports = reportsResponse?.data || {
     users: { total: 0, active: 0, inactive: 0 },
-    products: { total: 0, expired: 0, expiringSoon: 0 },
+    products: { total: 0, expired: 0, soon: 0 },
     notifications: { total: 0, read: 0, pending: 0 }
   };
 
   const REPORT_CARDS = [
     {
+      id: 'users',
       title: 'User Activity Report',
       description: `Total: ${reports.users.total} | Active: ${reports.users.active} | Inactive: ${reports.users.inactive}`,
       icon: Users,
@@ -38,14 +67,16 @@ export default function AdminReportsPage() {
       lastGenerated: 'Real-time'
     },
     {
+      id: 'products',
       title: 'Product Expiry Report',
-      description: `Total: ${reports.products.total} | Expired: ${reports.products.expired} | Expiring Soon: ${reports.products.expiringSoon}`,
+      description: `Total: ${reports.products.total} | Expired: ${reports.products.expired} | Expiring Soon: ${reports.products.soon}`,
       icon: Package,
       color: 'text-emerald-500',
       bg: 'bg-emerald-500/10',
       lastGenerated: 'Real-time'
     },
     {
+      id: 'notifications',
       title: 'Notification Performance',
       description: `Total: ${reports.notifications.total} | Read: ${reports.notifications.read} | Pending: ${reports.notifications.pending}`,
       icon: Bell,
@@ -97,11 +128,19 @@ export default function AdminReportsPage() {
                     <span>Generated: {report.lastGenerated}</span>
                   </div>
                   <div className="flex gap-2">
-                    <button className="flex-1 flex items-center justify-center gap-2 bg-slate-900/50 border border-slate-800 hover:bg-slate-800 text-slate-300 hover:text-white py-2 rounded-xl text-xs font-bold transition-all">
+                    <button 
+                      onClick={() => handleDownload(report.id, 'csv')}
+                      disabled={isExporting}
+                      className="flex-1 flex items-center justify-center gap-2 bg-slate-900/50 border border-slate-800 hover:bg-slate-800 text-slate-300 hover:text-white py-2 rounded-xl text-xs font-bold transition-all disabled:opacity-50"
+                    >
                       <Download className="w-3.5 h-3.5" />
                       CSV
                     </button>
-                    <button className="flex-1 flex items-center justify-center gap-2 bg-slate-900/50 border border-slate-800 hover:bg-slate-800 text-slate-300 hover:text-white py-2 rounded-xl text-xs font-bold transition-all">
+                    <button 
+                      onClick={() => handleDownload(report.id, 'pdf')}
+                      disabled={isExporting}
+                      className="flex-1 flex items-center justify-center gap-2 bg-slate-900/50 border border-slate-800 hover:bg-slate-800 text-slate-300 hover:text-white py-2 rounded-xl text-xs font-bold transition-all disabled:opacity-50"
+                    >
                       <FileText className="w-3.5 h-3.5" />
                       PDF
                     </button>

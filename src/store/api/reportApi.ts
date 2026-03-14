@@ -6,7 +6,13 @@ export const reportApi = baseApi.injectEndpoints({
       query: () => '/reports',
       providesTags: ['Reports'],
     }),
+    exportReport: builder.query<Blob, { type: string; format: string }>({
+      query: ({ type, format }) => ({
+        url: `/reports/export/${type}/${format}`,
+        responseHandler: (response) => response.blob(),
+      }),
+    }),
   }),
 });
 
-export const { useGetAdminReportsQuery } = reportApi;
+export const { useGetAdminReportsQuery, useLazyExportReportQuery } = reportApi;

@@ -13,6 +13,7 @@ export const baseApi = createApi({
       return headers;
     },
   }),
-  tagTypes: ['Stats', 'Charts', 'Users', 'Products', 'Notifications', 'Testers', 'Reports'],
+  tagTypes: ['Stats', 'Charts', 'Users', 'Products', 'Notifications', 'Testers', 'Reports', 'Categories'],
+  keepUnusedDataFor: 60 * 60 * 24, // 24 hours
   endpoints: () => ({}),
 });
