@@ -21,8 +21,8 @@ export default function Features({ data }: FeaturesProps) {
   const { features } = data;
 
   return (
-    <section id="features" className="py-24 bg-[#020617]">
-      <FeaturesClient 
+    <section id="features" className="relative py-24" style={{ background: 'linear-gradient(180deg, #080d1e 0%, #0d1225 100%)' }}>
+      <FeaturesClient
         badge={features.badge}
         title={features.title}
         description={features.description}

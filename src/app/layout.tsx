@@ -14,7 +14,7 @@ const geistMono = Geist_Mono({
 });
 
 export const viewport: Viewport = {
-  themeColor: "#020617",
+  themeColor: "#f8fafc",
 };
 
 export const metadata: Metadata = {
@@ -66,14 +66,14 @@ export default function RootLayout({
             toastOptions={{
               duration: 4000,
               style: {
-                background: '#1e293b',
-                color: '#f8fafc',
-                border: '1px solid #334155',
+                background: '#ffffff',
+                color: '#0f172a',
+                border: '1px solid #e2e8f0',
               },
               success: {
                 iconTheme: {
                   primary: '#10b981',
-                  secondary: '#f8fafc',
+                  secondary: '#ffffff',
                 },
               },
             }} 

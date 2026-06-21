@@ -15,40 +15,43 @@ import Footer from '@/components/Footer';
 import footerData from '../../data/landing/footer.json';
 
 export const metadata: Metadata = {
-  title: "Smart Expiry Tracker & Inventory Manager",
-  description: "Track your household inventory, receive expiry alerts, and reduce waste with Expirely's premium dashboard.",
+  title: 'Smart Expiry Tracker & Inventory Manager',
+  description:
+    "Track your household inventory, receive expiry alerts, and reduce waste with Expirely's premium dashboard.",
 };
 
 export default function Home() {
   return (
-    <div className="min-h-screen bg-[#020617]">
+    <div className="min-h-screen" style={{ background: 'var(--gradient-bg)' }}>
       <Navbar />
 
       <main>
-        {/* Sections wrapped in Suspense for optimization */}
-        
-        <Suspense fallback={<div className="h-[70vh] flex items-center justify-center animate-pulse bg-slate-900/50" />}>
+        <Suspense
+          fallback={
+            <div className="h-[70vh] flex items-center justify-center animate-pulse bg-slate-100" />
+          }
+        >
           <Hero data={heroData} />
         </Suspense>
 
-        <Suspense fallback={<div className="h-[40vh] bg-[#020617]" />}>
+        <Suspense fallback={<div className="h-[40vh] bg-white" />}>
           <Features data={featuresData} />
         </Suspense>
 
-        <Suspense fallback={<div className="h-[40vh] bg-[#020617]" />}>
+        <Suspense fallback={<div className="h-[40vh] bg-slate-50" />}>
           <HowItWorks data={howItWorksData} />
         </Suspense>
 
-        <Suspense fallback={<div className="h-[40vh] bg-[#020617]" />}>
+        <Suspense fallback={<div className="h-[40vh] bg-slate-50" />}>
           <Benefits data={benefitsData} />
         </Suspense>
 
-        <Suspense fallback={<div className="h-[40vh] bg-[#020617]" />}>
+        <Suspense fallback={<div className="h-[40vh] bg-white" />}>
           <FAQ data={faqData} />
         </Suspense>
       </main>
 
-      <Suspense fallback={<div className="h-[20vh] bg-[#020617]" />}>
+      <Suspense fallback={<div className="h-[20vh] bg-white" />}>
         <Footer data={footerData} />
       </Suspense>
     </div>

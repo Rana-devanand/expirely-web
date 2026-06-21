@@ -1,28 +1,14 @@
 import Link from 'next/link';
 import Image from 'next/image';
-import { Mail, ChevronRight } from 'lucide-react';
+import { ChevronRight, Mail } from 'lucide-react';
 
 interface FooterProps {
   data: {
     footer: {
-      cta: {
-        title: string;
-        description: string;
-        button: { text: string; link: string };
-      };
-      brand: {
-        name: string;
-        description: string;
-      };
-      links: {
-        title: string;
-        items: { name: string; href: string }[];
-      }[];
-      contact: {
-        title: string;
-        email: string;
-        adminLogin: string;
-      };
+      cta: { title: string; description: string; button: { text: string; link: string }; };
+      brand: { name: string; description: string; };
+      links: { title: string; items: { name: string; href: string }[]; }[];
+      contact: { title: string; email: string; adminLogin: string; };
       copyright: string;
     };
   };
@@ -32,49 +18,66 @@ export default function Footer({ data }: FooterProps) {
   const { footer } = data;
 
   return (
-    <footer className="bg-[#020617] border-t border-slate-800">
-      {/* Pre-footer CTA */}
-      <div className="py-24 bg-slate-900/40 border-b border-slate-800/50">
-        <div className="max-w-4xl mx-auto px-4 text-center">
-          <h2 className="text-3xl md:text-5xl font-extrabold text-slate-50 mb-7 tracking-tight">
+    <footer className="border-t" style={{ borderColor: 'rgba(168,85,247,0.15)', background: 'var(--navy-950)' }}>
+      {/* CTA strip */}
+      <div className="relative overflow-hidden border-b py-16"
+        style={{ borderColor: 'rgba(168,85,247,0.15)', background: 'rgba(168,85,247,0.06)' }}>
+        <div className="pointer-events-none absolute top-1/2 left-1/2 h-[200px] w-[500px] -translate-x-1/2 -translate-y-1/2 rounded-full blur-[100px]"
+          style={{ background: 'rgba(168,85,247,0.15)' }} />
+        <div className="relative z-10 mx-auto max-w-4xl px-4 text-center">
+          <h2 className="mb-6 text-2xl font-extrabold tracking-tight md:text-4xl"
+            style={{ color: 'var(--color-text)' }}>
             {footer.cta.title}
           </h2>
-          <p className="text-slate-400 text-lg mb-10 max-w-2xl mx-auto">
+          <p className="mx-auto mb-8 max-w-xl text-sm leading-relaxed md:text-base"
+            style={{ color: 'var(--color-text-muted)' }}>
             {footer.cta.description}
           </p>
-          <Link href={footer.cta.button.link} className="bg-[#10b981] text-white px-10 py-4 rounded-xl font-bold text-lg hover:bg-[#059669] transition-all flex items-center gap-2 mx-auto w-fit shadow-xl shadow-emerald-900/20 hover:-translate-y-1 active:scale-95 group">
-            {footer.cta.button.text}
-            <ChevronRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+          <Link
+            href="/onboarding"
+            className="group mx-auto flex w-fit items-center gap-2 rounded-full px-8 py-3.5 text-base font-bold text-white transition-all hover:-translate-y-0.5 active:scale-95"
+            style={{ background: 'var(--gradient-brand)', boxShadow: 'var(--shadow-brand-lg)' }}
+          >
+            Get Started Free
+            <ChevronRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
           </Link>
         </div>
       </div>
 
-      {/* Main Footer Links */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12">
-          {/* Brand Info */}
+      {/* Footer grid */}
+      <div className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
+        <div className="grid grid-cols-1 gap-12 md:grid-cols-2 lg:grid-cols-4">
+          {/* Brand */}
           <div className="space-y-6">
-            <Link href="/" className="flex items-center gap-2 group">
-              <div className="bg-emerald-500/10 w-9 h-9 rounded-xl group-hover:bg-emerald-500/20 transition-all overflow-hidden relative">
-                <Image src="/logo.png" alt="Expirely" fill className="object-cover" />
+            <Link href="/" className="group flex items-center gap-2">
+              <div className="relative h-9 w-9 overflow-hidden rounded-xl border"
+                style={{ borderColor: 'rgba(168,85,247,0.25)', background: 'rgba(168,85,247,0.1)' }}>
+                <Image src="/logo1.png" alt="Expirely" fill className="object-cover" />
               </div>
-              <span className="text-xl font-bold text-slate-50">
+              <span className="text-xl font-bold" style={{ color: 'var(--color-text)' }}>
                 {footer.brand.name}
               </span>
             </Link>
-            <p className="text-slate-400 text-sm leading-relaxed max-w-xs">
+            <p className="max-w-xs text-[13px] leading-relaxed" style={{ color: 'var(--color-text-muted)' }}>
               {footer.brand.description}
             </p>
           </div>
 
-          {/* Dynamic Links */}
+          {/* Link groups */}
           {footer.links.map((group, index) => (
             <div key={index} className="space-y-6">
-              <h4 className="font-bold text-slate-50">{group.title}</h4>
-              <ul className="space-y-4">
-                {group.items.map((link, lIndex) => (
-                  <li key={lIndex}>
-                    <Link href={link.href} className="text-slate-400 hover:text-emerald-400 text-sm transition-colors">
+              <h4 className="text-sm font-bold uppercase tracking-wider" style={{ color: 'var(--color-text)' }}>
+                {group.title}
+              </h4>
+              <ul className="space-y-3">
+                {group.items.map((link, linkIndex) => (
+                  <li key={linkIndex}>
+                    <Link href={link.href}
+                      className="text-sm transition-colors hover:opacity-90"
+                      style={{ color: 'var(--color-text-muted)' }}
+                      // onMouseEnter={(e) => (e.currentTarget as HTMLElement).style.color = 'var(--brand-400)'}
+                      // onMouseLeave={(e) => (e.currentTarget as HTMLElement).style.color = 'var(--color-text-muted)'}
+                    >
                       {link.name}
                     </Link>
                   </li>
@@ -83,30 +86,35 @@ export default function Footer({ data }: FooterProps) {
             </div>
           ))}
 
-          {/* Contact Info */}
+          {/* Contact */}
           <div className="space-y-6">
-            <h4 className="font-bold text-slate-50">{footer.contact.title}</h4>
-            <ul className="space-y-4">
+            <h4 className="text-sm font-bold uppercase tracking-wider" style={{ color: 'var(--color-text)' }}>
+              {footer.contact.title}
+            </h4>
+            <ul className="space-y-3">
               <li>
-                <div className="flex items-center gap-2 text-slate-400 text-sm">
-                  <Mail className="w-4 h-4" />
+                <div className="flex items-center gap-2 text-sm" style={{ color: 'var(--color-text-muted)' }}>
+                  <Mail className="h-4 w-4" style={{ color: 'var(--brand-400)' }} />
                   <span>{footer.contact.email}</span>
                 </div>
               </li>
               <li>
-                <button className="text-slate-400 hover:text-emerald-400 text-sm transition-colors">
+                <Link href="/admin/login"
+                  className="text-sm transition-colors"
+                  style={{ color: 'var(--color-text-muted)' }}
+                  // onMouseEnter={(e) => (e.currentTarget as HTMLElement).style.color = 'var(--brand-400)'}
+                  // onMouseLeave={(e) => (e.currentTarget as HTMLElement).style.color = 'var(--color-text-muted)'}
+                >
                   {footer.contact.adminLogin}
-                </button>
+                </Link>
               </li>
             </ul>
           </div>
         </div>
 
-        {/* Divider & Copyright */}
-        <div className="mt-20 pt-8 border-t border-slate-800 flex flex-col md:flex-row justify-center items-center gap-4 text-center">
-          <p className="text-slate-500 text-xs">
-            © {footer.copyright}
-          </p>
+        <div className="mt-16 flex flex-col items-center justify-center gap-4 border-t pt-8 text-center md:flex-row"
+          style={{ borderColor: 'rgba(168,85,247,0.12)' }}>
+          <p className="text-xs" style={{ color: 'var(--color-text-subtle)' }}>© {footer.copyright}</p>
         </div>
       </div>
     </footer>

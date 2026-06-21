@@ -1,0 +1,170 @@
+/* ============================================================
+   EXPIRELY — COMMON THEME
+   Purple-accent dark-navy design system
+   Import this file in globals.css
+   ============================================================ */
+
+:root {
+  /* ── Brand Palette ─────────────────────────────────────── */
+  --brand-50:  #faf5ff;
+  --brand-100: #f3e8ff;
+  --brand-200: #e9d5ff;
+  --brand-300: #d8b4fe;
+  --brand-400: #c084fc;
+  --brand-500: #a855f7;   /* primary purple */
+  --brand-600: #9333ea;
+  --brand-700: #7e22ce;
+  --brand-800: #6b21a8;
+  --brand-900: #581c87;
+  --brand-950: #3b0764;
+
+  /* ── Secondary / Accent (violet) ───────────────────────── */
+  --accent-400: #818cf8;
+  --accent-500: #6366f1;
+  --accent-600: #4f46e5;
+
+  /* ── Navy / Background ──────────────────────────────────── */
+  --navy-50:   #f0f4ff;
+  --navy-100:  #e0e9ff;
+  --navy-800:  #1a2550;
+  --navy-900:  #0f172a;
+  --navy-950:  #080d1e;
+
+  /* ── Surface / Glass ────────────────────────────────────── */
+  --surface-glass:   rgba(255, 255, 255, 0.06);
+  --surface-glass-hover: rgba(255, 255, 255, 0.10);
+  --surface-border:  rgba(168, 85, 247, 0.18);
+  --surface-border-hover: rgba(168, 85, 247, 0.36);
+
+  /* ── Semantic Tokens ────────────────────────────────────── */
+  --color-primary:        var(--brand-500);
+  --color-primary-light:  var(--brand-400);
+  --color-primary-dark:   var(--brand-700);
+  --color-accent:         var(--accent-500);
+  --color-bg:             var(--navy-950);
+  --color-bg-card:        var(--surface-glass);
+  --color-text:           #f1f5f9;
+  --color-text-muted:     #94a3b8;
+  --color-text-subtle:    #64748b;
+  --color-border:         var(--surface-border);
+
+  /* ── Gradients ──────────────────────────────────────────── */
+  --gradient-brand: linear-gradient(135deg, #a855f7 0%, #6366f1 100%);
+  --gradient-brand-hover: linear-gradient(135deg, #c084fc 0%, #818cf8 100%);
+  --gradient-bg: linear-gradient(180deg, #0d1225 0%, #080d1e 60%, #050812 100%);
+  --gradient-hero: radial-gradient(ellipse 80% 60% at 70% 30%, rgba(168,85,247,0.18) 0%, transparent 70%),
+                   radial-gradient(ellipse 60% 50% at 20% 70%, rgba(99,102,241,0.12) 0%, transparent 60%),
+                   linear-gradient(180deg, #0d1225 0%, #080d1e 100%);
+
+  /* ── Shadows ────────────────────────────────────────────── */
+  --shadow-brand:  0 0 25px rgba(168, 85, 247, 0.35);
+  --shadow-brand-lg: 0 8px 40px rgba(168, 85, 247, 0.28);
+  --shadow-card:   0 12px 36px rgba(0, 0, 0, 0.35);
+
+  /* ── Radius ─────────────────────────────────────────────── */
+  --radius-sm: 10px;
+  --radius-md: 16px;
+  --radius-lg: 22px;
+  --radius-xl: 32px;
+  --radius-pill: 9999px;
+}
+
+/* ── Utility Classes ────────────────────────────────────── */
+
+/* Backgrounds */
+.bg-brand        { background-color: var(--color-primary); }
+.bg-brand-grad   { background: var(--gradient-brand); }
+.bg-theme        { background: var(--gradient-bg); }
+
+/* Text */
+.text-brand      { color: var(--color-primary); }
+.text-brand-light { color: var(--color-primary-light); }
+
+/* Gradient Text */
+.text-gradient-brand {
+  background: var(--gradient-brand);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Glass card for dark theme */
+.glass-dark {
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid var(--surface-border);
+  box-shadow: var(--shadow-card);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.glass-dark:hover {
+  background: var(--surface-glass-hover);
+  border-color: var(--surface-border-hover);
+  box-shadow: var(--shadow-brand-lg);
+}
+
+/* Glow blob override for purple */
+.glow-blob-purple {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(120px);
+  pointer-events: none;
+  z-index: 0;
+  opacity: 0.55;
+}
+
+/* Badge shine — purple */
+.badge-shine-purple {
+  background: linear-gradient(
+    90deg,
+    rgba(168,85,247,0.08) 0%,
+    rgba(192,132,252,0.22) 50%,
+    rgba(168,85,247,0.08) 100%
+  );
+  background-size: 200% 100%;
+  animation: shine 4s infinite linear;
+}
+
+/* Primary button */
+.btn-primary {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--gradient-brand);
+  color: #fff;
+  font-weight: 700;
+  border-radius: var(--radius-pill);
+  padding: 12px 28px;
+  font-size: 14px;
+  transition: all 0.25s ease;
+  box-shadow: var(--shadow-brand);
+  border: none;
+  cursor: pointer;
+}
+.btn-primary:hover {
+  background: var(--gradient-brand-hover);
+  box-shadow: 0 0 32px rgba(168,85,247,0.5);
+  transform: translateY(-2px);
+}
+.btn-primary:active { transform: scale(0.96); }
+
+/* Outline button */
+.btn-outline {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: transparent;
+  color: var(--color-text);
+  font-weight: 700;
+  border-radius: var(--radius-pill);
+  padding: 12px 28px;
+  font-size: 14px;
+  transition: all 0.25s ease;
+  border: 1px solid var(--surface-border-hover);
+  cursor: pointer;
+}
+.btn-outline:hover {
+  border-color: var(--brand-400);
+  background: rgba(168,85,247,0.08);
+  color: var(--brand-300);
+}

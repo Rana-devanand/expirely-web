@@ -20,7 +20,7 @@ export default function Benefits({ data }: BenefitsProps) {
   const { benefits } = data;
 
   return (
-    <section id="benefits" className="py-24 bg-slate-50/30">
+    <section id="benefits" className="relative py-24" style={{ background: 'linear-gradient(180deg, #0a0f1e 0%, #080d1e 100%)' }}>
       <BenefitsClient 
         badge={benefits.badge}
         title={benefits.title}

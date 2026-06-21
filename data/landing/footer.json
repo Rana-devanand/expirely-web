@@ -16,9 +16,10 @@
       {
         "title": "Product",
         "items": [
-          { "name": "Features", "href": "#features" },
-          { "name": "Pricing", "href": "#" },
-          { "name": "Download", "href": "#" }
+          { "name": "Features", "href": "/features" },
+          { "name": "Pricing", "href": "/pricing" },
+          { "name": "Smart Recipes", "href": "/recipes" },
+          { "name": "Beta Testers", "href": "/testers" }
         ]
       },
       {

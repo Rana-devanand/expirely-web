@@ -5,46 +5,50 @@ import Image from 'next/image';
 
 export default function HeroMockup() {
   return (
-    <div className="flex justify-center lg:justify-end items-center w-full">
+    <div className="flex w-full items-center justify-center px-8 sm:px-12 md:justify-end md:px-0">
       <motion.div
-        initial={{ opacity: 0, scale: 0.9, y: 20 }}
+        initial={{ opacity: 0, scale: 0.88, y: 30 }}
         animate={{ opacity: 1, scale: 1, y: 0 }}
-        transition={{ duration: 0.8, ease: "easeOut" }}
+        transition={{ duration: 0.9, ease: 'easeOut' }}
         className="relative"
       >
-        {/* Glow effect - adjusted for better visibility */}
-        <div className="absolute -inset-10 bg-gradient-to-tr from-[#10b981]/20 to-emerald-300/20 blur-[60px] rounded-full -z-10" />
-        
+        {/* Purple radial glow behind the phone */}
+        <div
+          className="pointer-events-none absolute inset-0 -z-10 scale-[1.4] rounded-full blur-3xl"
+          style={{ background: 'radial-gradient(ellipse, rgba(168,85,247,0.28) 0%, rgba(99,102,241,0.14) 50%, transparent 75%)' }}
+        />
+
+        {/* Floating phone — gentle bob animation */}
         <motion.div
-          animate={{ 
-            y: [0, -15, 0],
-          }}
-          transition={{ 
-            duration: 6, 
-            repeat: Infinity, 
-            ease: "easeInOut" 
-          }}
+          animate={{ y: [0, -12, 0] }}
+          transition={{ duration: 5.5, repeat: Infinity, ease: 'easeInOut' }}
           className="relative z-10"
         >
-          {/* Phone Template Container */}
-          <div className="bg-gray-900 p-2 rounded-[3rem] shadow-[0_20px_50px_rgba(0,0,0,0.2)] border-4 border-gray-800 overflow-hidden w-[260px] md:w-[260px]">
-             <div className="bg-white h-[500px] md:h-[520px] w-full rounded-[2.2rem] overflow-hidden relative border border-gray-200 pt-10">
-                {/* User's App Screenshot */}
-                <Image 
-                  src="/phone-light.jpeg" 
-                  alt="App Screenshot" 
-                  fill
-                  className="object-cover"
-                  priority
-                  sizes="(max-width: 768px) 260px, 280px"
-                />
-                
-                {/* Notch/Island Mock */}
-                <div className="absolute top-3 left-1/2 -translate-x-1/2 w-20 h-5 bg-black rounded-full z-20" />
-                
-                {/* Reflection Overlay for depth */}
-                <div className="absolute inset-0 bg-gradient-to-tr from-white/10 to-transparent pointer-events-none z-10" />
-             </div>
+          {/* Phone shell */}
+          <div className="relative mx-auto w-[240px] sm:w-[258px] md:w-[270px]">
+            {/* Shadow puddle beneath the phone */}
+            <div
+              className="absolute -bottom-6 left-1/2 h-8 w-4/5 -translate-x-1/2 rounded-full blur-2xl"
+              style={{ background: 'rgba(168,85,247,0.3)' }}
+            />
+
+            <div
+              className="relative overflow-hidden rounded-[2.8rem] border shadow-2xl"
+              style={{
+                height: 'clamp(480px, 55vw, 540px)',
+                borderColor: 'rgba(168,85,247,0.3)',
+                // boxShadow: '0 32px 80px rgba(168,85,247,0.25), 0 8px 32px rgba(0,0,0,0.5)',
+              }}
+            >
+              <Image
+                src="/phone-light.png"
+                alt="Expirely App Screenshot"
+                fill
+                className="object-fill"
+                priority
+                sizes="(max-width: 640px) 240px, (max-width: 768px) 258px, 290px"
+              />
+            </div>
           </div>
         </motion.div>
       </motion.div>
