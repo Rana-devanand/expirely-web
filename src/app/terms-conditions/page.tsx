@@ -13,13 +13,17 @@ export default function TermsConditions() {
         </div>
 
         <div>
-          <h2 className="text-2xl font-bold text-slate-100 mb-4">2. AI Accuracy & Disclaimer</h2>
-          <p className="bg-emerald-500/10 border-l-4 border-emerald-500 p-4 font-medium text-slate-200">
+          <h2 className="text-2xl font-bold text-slate-100 mb-4">2. AI Accuracy & Analytics Disclaimer</h2>
+          <p className="bg-emerald-500/10 border-l-4 border-emerald-500 p-4 font-medium text-slate-200 mb-4">
             IMPORTANT: Dates detected by our AI scanning system are estimates. Users should always verify the physical label on a product for safety. Expirely is not responsible for any issues arising from incorrect date detection.
           </p>
-          <p className="mt-4">
-            While we strive for high accuracy in our AI-based scanning and suggestions (including recipes and nutrition facts), the technology is not perfect. Users are responsible for exercising their own judgment regarding food safety and quality.
+          <p>
+            While we strive for high accuracy in our AI-based scanning, recipe suggestions, and waste savings metrics, these features are provided for informational and motivational purposes only.
           </p>
+          <ul className="list-disc pl-6 space-y-2 mt-4">
+            <li><strong>Savings Analytics:</strong> The Waste Savings Dashboard estimates money saved based on user-entered prices or standard product valuations. We make no guarantees of exact financial savings or calculations.</li>
+            <li><strong>Daily Reminders:</strong> Alert delivery relies on push notification protocols (APNs, FCM) and device settings. We do not guarantee alert delivery times or receipt. Always check physical products for fresh status.</li>
+          </ul>
         </div>
 
         <div>
@@ -28,9 +32,9 @@ export default function TermsConditions() {
             Expirely grants you a personal, non-transferable license to use the app for household inventory management.
           </p>
           <ul className="list-disc pl-6 space-y-2 mt-4">
-            <li>You are responsible for maintaining the confidentiality of your account.</li>
+            <li>You are responsible for maintaining the confidentiality of your account credentials.</li>
             <li>You agree not to use the service for any illegal or unauthorized purpose.</li>
-            <li>The availability of AI scanning features may depend on network connectivity and third-party API availability.</li>
+            <li><strong>Family / Shared Inventory:</strong> When creating or joining a household, you acknowledge that all invited members will have shared access and permissions to add, edit, or delete items within that shared inventory. Expirely is not liable for data modified or deleted by household members you invite.</li>
           </ul>
         </div>
 
@@ -51,7 +55,7 @@ export default function TermsConditions() {
         </div>
 
         <div className="pt-8 text-slate-500 italic">
-          Last Updated: March 10, 2026
+          Last Updated: June 24, 2026
         </div>
       </section>
     </LegalLayout>

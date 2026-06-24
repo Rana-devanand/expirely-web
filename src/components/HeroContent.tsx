@@ -36,7 +36,7 @@ export default function HeroContent({
       {/* Heading */}
       <h1 className="mb-6 text-3xl font-black leading-[1.1] tracking-tight sm:text-4xl md:text-5xl lg:text-5xl"
         style={{ color: 'var(--color-text)' }}>
-        {title} <br />
+        {title} {" "}
         <span className="text-gradient-brand">{highlight}</span>
       </h1>
 

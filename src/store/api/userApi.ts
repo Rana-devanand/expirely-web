@@ -16,7 +16,26 @@ export const userApi = baseApi.injectEndpoints({
       }),
       invalidatesTags: ['Users', 'Stats'], // Invalidate users list and dashboard stats
     }),
+    broadcastEmail: builder.mutation<any, { subject: string; content: string; recipients: string[] }>({
+      query: (body) => ({
+        url: '/users/admin/broadcast-email',
+        method: 'POST',
+        body,
+      }),
+    }),
+    unsubscribe: builder.mutation<any, { email: string }>({
+      query: (body) => ({
+        url: '/users/unsubscribe',
+        method: 'POST',
+        body,
+      }),
+    }),
   }),
 });
 
-export const { useGetAllUsersQuery, useUpdateUserStatusMutation } = userApi;
+export const { 
+  useGetAllUsersQuery, 
+  useUpdateUserStatusMutation, 
+  useBroadcastEmailMutation,
+  useUnsubscribeMutation
+} = userApi;

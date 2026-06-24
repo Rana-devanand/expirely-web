@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
+import { useRouter } from 'next/navigation';
 import { motion } from 'framer-motion';
 import { 
   Search, 
@@ -11,7 +12,10 @@ import {
   ChevronLeft,
   ChevronRight,
   MoreVertical,
-  Ban
+  Ban,
+  CheckSquare,
+  Square,
+  Mail
 } from 'lucide-react';
 import AdminSidebar from '@/components/admin/AdminSidebar';
 import AdminHeader from '@/components/admin/AdminHeader';
@@ -26,6 +30,8 @@ export default function AdminUsersPage() {
   const [currentPage, setCurrentPage] = useState(1);
   const [selectedUser, setSelectedUser] = useState<any>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [selectedEmails, setSelectedEmails] = useState<string[]>([]);
+  const router = useRouter();
   const itemsPerPage = 8;
 
   // Use RTK Query hooks
@@ -39,6 +45,23 @@ export default function AdminUsersPage() {
     user.email.toLowerCase().includes(searchQuery.toLowerCase()) ||
     user.id.toLowerCase().includes(searchQuery.toLowerCase())
   );
+
+  const isAllSelected = filteredUsers.length > 0 && filteredUsers.every(u => selectedEmails.includes(u.email));
+
+  const handleSelectAll = () => {
+    if (isAllSelected) {
+      const filteredEmails = filteredUsers.map(u => u.email);
+      setSelectedEmails(prev => prev.filter(e => !filteredEmails.includes(e)));
+    } else {
+      const filteredEmails = filteredUsers.map(u => u.email);
+      setSelectedEmails(prev => [...new Set([...prev, ...filteredEmails])]);
+    }
+  };
+
+  const handleGoToBroadcast = () => {
+    sessionStorage.setItem('broadcast_recipients', JSON.stringify(selectedEmails));
+    router.push('/admin/email-broadcast');
+  };
 
   const totalPages = Math.ceil(filteredUsers.length / itemsPerPage);
   const startIndex = (currentPage - 1) * itemsPerPage;
@@ -79,10 +102,21 @@ export default function AdminUsersPage() {
               <h1 className="text-2xl font-extrabold text-slate-50">Users</h1>
               <p className="text-slate-400 text-xs mt-1">Manage your application users</p>
             </div>
-            <button className="bg-[#10b981] text-white px-4 py-2 rounded-lg font-bold text-sm hover:bg-[#059669] transition-all flex items-center gap-2 shadow-lg shadow-emerald-950/20 active:scale-[0.98]">
-              <Download className="w-4 h-4" />
-              Export Users
-            </button>
+            <div className="flex gap-2">
+              {selectedEmails.length > 0 && (
+                <button
+                  onClick={handleGoToBroadcast}
+                  className="bg-purple-600 hover:bg-purple-700 text-white px-4 py-2.5 rounded-xl font-bold text-xs transition-all flex items-center gap-2 shadow-lg shadow-purple-950/20 active:scale-[0.98]"
+                >
+                  <Mail className="w-3.5 h-3.5" />
+                  Broadcast to Selected ({selectedEmails.length})
+                </button>
+              )}
+              <button className="bg-[#10b981] text-white px-4 py-2.5 rounded-xl font-bold text-xs hover:bg-[#059669] transition-all flex items-center gap-2 shadow-lg shadow-emerald-950/20 active:scale-[0.98]">
+                <Download className="w-3.5 h-3.5" />
+                Export Users
+              </button>
+            </div>
           </div>
 
           {/* Filters & Search */}
@@ -112,24 +146,56 @@ export default function AdminUsersPage() {
               <table className="w-full text-left border-collapse">
                 <thead>
                   <tr className="border-b border-slate-800 bg-slate-900/40">
-                    <th className="px-6 py-4 text-[11px] font-bold text-slate-500 uppercase tracking-wider">User ID</th>
-                    <th className="px-6 py-4 text-[11px] font-bold text-slate-500 uppercase tracking-wider">Name</th>
-                    <th className="px-6 py-4 text-[11px] font-bold text-slate-500 uppercase tracking-wider">Email</th>
-                    <th className="px-6 py-4 text-[11px] font-bold text-slate-500 uppercase tracking-wider">Join Date</th>
-                    <th className="px-6 py-4 text-[11px] font-bold text-slate-500 uppercase tracking-wider">Products</th>
-                    <th className="px-6 py-4 text-[11px] font-bold text-slate-500 uppercase tracking-wider">Status</th>
+                    <th className="pl-6 pr-2 py-4 w-12">
+                      <button
+                        type="button"
+                        onClick={handleSelectAll}
+                        className="text-slate-500 hover:text-emerald-400 transition-colors flex items-center justify-center"
+                      >
+                        {isAllSelected ? (
+                          <CheckSquare className="w-4 h-4 text-emerald-400" />
+                        ) : (
+                          <Square className="w-4 h-4" />
+                        )}
+                      </button>
+                    </th>
+                    <th className="px-4 py-4 text-[11px] font-bold text-slate-500 uppercase tracking-wider">User ID</th>
+                    <th className="px-4 py-4 text-[11px] font-bold text-slate-500 uppercase tracking-wider">Name</th>
+                    <th className="px-4 py-4 text-[11px] font-bold text-slate-500 uppercase tracking-wider">Email</th>
+                    <th className="px-4 py-4 text-[11px] font-bold text-slate-500 uppercase tracking-wider">Join Date</th>
+                    <th className="px-4 py-4 text-[11px] font-bold text-slate-500 uppercase tracking-wider">Products</th>
+                    <th className="px-4 py-4 text-[11px] font-bold text-slate-500 uppercase tracking-wider">Status</th>
                     <th className="px-6 py-4 text-[11px] font-bold text-slate-500 uppercase tracking-wider text-right">Actions</th>
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-slate-800">
                   {paginatedUsers.map((user) => (
                     <tr key={user.id} className="hover:bg-slate-800/30 transition-colors group">
-                      <td className="px-6 py-4 text-[13px] font-medium text-slate-500">{user.id.slice(0, 8)}...</td>
-                      <td className="px-6 py-4 text-[13px] font-bold text-slate-50">{user.name}</td>
-                      <td className="px-6 py-4 text-[13px] text-slate-400">{user.email}</td>
-                      <td className="px-6 py-4 text-[13px] text-slate-400">{user.joinDate}</td>
-                      <td className="px-6 py-4 text-[13px] font-medium text-slate-300">{user.products}</td>
-                      <td className="px-6 py-4">
+                      <td className="pl-6 pr-2 py-4">
+                        <button
+                          type="button"
+                          onClick={() => {
+                            setSelectedEmails(prev => 
+                              prev.includes(user.email) 
+                                ? prev.filter(e => e !== user.email) 
+                                : [...prev, user.email]
+                            );
+                          }}
+                          className="text-slate-500 hover:text-emerald-400 transition-colors flex items-center justify-center"
+                        >
+                          {selectedEmails.includes(user.email) ? (
+                            <CheckSquare className="w-4 h-4 text-emerald-400" />
+                          ) : (
+                            <Square className="w-4 h-4" />
+                          )}
+                        </button>
+                      </td>
+                      <td className="px-4 py-4 text-[13px] font-medium text-slate-500">{user.id.slice(0, 8)}...</td>
+                      <td className="px-4 py-4 text-[13px] font-bold text-slate-50">{user.name}</td>
+                      <td className="px-4 py-4 text-[13px] text-slate-400">{user.email}</td>
+                      <td className="px-4 py-4 text-[13px] text-slate-400">{user.joinDate}</td>
+                      <td className="px-4 py-4 text-[13px] font-medium text-slate-300">{user.products}</td>
+                      <td className="px-4 py-4">
                         <span className={`px-2.5 py-1 rounded-full text-[10px] font-bold ${
                           user.status === 'Active' 
                             ? 'bg-emerald-500/10 text-emerald-400 border border-emerald-500/20' 
@@ -140,6 +206,16 @@ export default function AdminUsersPage() {
                       </td>
                       <td className="px-6 py-4 text-right">
                         <div className="flex items-center justify-end gap-2 transition-opacity">
+                          <button 
+                            className="p-1.5 hover:bg-slate-700 rounded-lg text-slate-300 transition-colors" 
+                            title="Send Broadcast Email"
+                            onClick={() => {
+                              sessionStorage.setItem('broadcast_recipients', JSON.stringify([user.email]));
+                              router.push('/admin/email-broadcast');
+                            }}
+                          >
+                            <Mail className="w-4 h-4 text-purple-400" />
+                          </button>
                           <button 
                             className="p-1.5 hover:bg-slate-700 rounded-lg text-slate-300 transition-colors" 
                             title="View Profile"

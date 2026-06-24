@@ -13,7 +13,8 @@ import {
   FileText, 
   Settings, 
   LogOut,
-  Search
+  Search,
+  Mail
 } from 'lucide-react';
 
 const SIDEBAR_LINKS = [
@@ -21,6 +22,7 @@ const SIDEBAR_LINKS = [
   { name: 'Users', icon: Users, href: '/admin/users' },
   { name: 'Products', icon: Package, href: '/admin/products' },
   { name: 'Notifications', icon: Bell, href: '/admin/notifications' },
+  { name: 'Email Broadcast', icon: Mail, href: '/admin/email-broadcast' },
   { name: 'Testers', icon: Search, href: '/admin/testers' },
   { name: 'Reports', icon: FileText, href: '/admin/reports' },
   { name: 'Settings', icon: Settings, href: '/admin/settings' },
