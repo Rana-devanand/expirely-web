@@ -30,6 +30,11 @@ export const userApi = baseApi.injectEndpoints({
         body,
       }),
     }),
+    getAllUserLocations: builder.query<any[], void>({
+      query: () => '/users/admin/locations',
+      providesTags: ['Users'],
+      transformResponse: (response: any) => response.data,
+    }),
   }),
 });
 
@@ -37,5 +42,6 @@ export const {
   useGetAllUsersQuery, 
   useUpdateUserStatusMutation, 
   useBroadcastEmailMutation,
-  useUnsubscribeMutation
+  useUnsubscribeMutation,
+  useGetAllUserLocationsQuery
 } = userApi;

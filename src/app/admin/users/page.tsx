@@ -24,6 +24,41 @@ import { useGetAllUsersQuery, useUpdateUserStatusMutation } from '@/store/api/us
 import { Loader2 } from 'lucide-react';
 import toast from 'react-hot-toast';
 
+const COUNTRY_FLAGS: Record<string, string> = {
+  'India': '🇮🇳',
+  'United States': '🇺🇸',
+  'Afghanistan': '🇦🇫',
+  'United Arab Emirates': '🇦🇪',
+  'United Kingdom': '🇬🇧',
+  'Canada': '🇨🇦',
+  'Germany': '🇩🇪',
+  'France': '🇫🇷',
+  'Australia': '🇦🇺',
+  'Brazil': '🇧🇷',
+  'China': '🇨🇳',
+  'Japan': '🇯🇵',
+  'Russia': '🇷🇺',
+  'South Africa': '🇿🇦',
+  'Nepal': '🇳🇵',
+  'Bangladesh': '🇧🇩',
+  'Pakistan': '🇵🇰',
+  'Sri Lanka': '🇱🇰',
+  'Singapore': '🇸🇬',
+  'Malaysia': '🇲🇾',
+  'Indonesia': '🇮🇩',
+  'Mexico': '🇲🇽',
+  'Saudi Arabia': '🇸🇦',
+  'Turkey': '🇹🇷',
+  'Egypt': '🇪🇬',
+  'Spain': '🇪🇸',
+  'Italy': '🇮🇹',
+  'Netherlands': '🇳🇱',
+  'Switzerland': '🇨🇭',
+  'Sweden': '🇸🇪',
+  'Norway': '🇳🇴',
+  'New Zealand': '🇳🇿',
+};
+
 export default function AdminUsersPage() {
   const [isSidebarOpen, setIsSidebarOpen] = useState(true);
   const [searchQuery, setSearchQuery] = useState('');
@@ -159,9 +194,9 @@ export default function AdminUsersPage() {
                         )}
                       </button>
                     </th>
-                    <th className="px-4 py-4 text-[11px] font-bold text-slate-500 uppercase tracking-wider">User ID</th>
                     <th className="px-4 py-4 text-[11px] font-bold text-slate-500 uppercase tracking-wider">Name</th>
                     <th className="px-4 py-4 text-[11px] font-bold text-slate-500 uppercase tracking-wider">Email</th>
+                    <th className="px-4 py-4 text-[11px] font-bold text-slate-500 uppercase tracking-wider">Country</th>
                     <th className="px-4 py-4 text-[11px] font-bold text-slate-500 uppercase tracking-wider">Join Date</th>
                     <th className="px-4 py-4 text-[11px] font-bold text-slate-500 uppercase tracking-wider">Products</th>
                     <th className="px-4 py-4 text-[11px] font-bold text-slate-500 uppercase tracking-wider">Status</th>
@@ -190,9 +225,35 @@ export default function AdminUsersPage() {
                           )}
                         </button>
                       </td>
-                      <td className="px-4 py-4 text-[13px] font-medium text-slate-500">{user.id.slice(0, 8)}...</td>
-                      <td className="px-4 py-4 text-[13px] font-bold text-slate-50">{user.name}</td>
+                      <td className="px-4 py-4 text-[13px] font-bold text-slate-50">
+                        <div className="flex items-center gap-3">
+                          {user.avatarUrl ? (
+                            <img 
+                              src={user.avatarUrl} 
+                              alt={user.name} 
+                              className="w-8 h-8 rounded-full object-cover border border-slate-800" 
+                            />
+                          ) : (
+                            <div className="w-8 h-8 rounded-full bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 flex items-center justify-center font-bold text-xs uppercase shrink-0">
+                              {user.name.charAt(0)}
+                            </div>
+                          )}
+                          <span>{user.name}</span>
+                        </div>
+                      </td>
                       <td className="px-4 py-4 text-[13px] text-slate-400">{user.email}</td>
+                      <td className="px-4 py-4 text-[13px] text-slate-400">
+                        {user.country ? (
+                          <div className="flex items-center gap-1.5">
+                            <span className="text-base select-none" title={user.country}>
+                              {COUNTRY_FLAGS[user.country] || '🌐'}
+                            </span>
+                            <span className="truncate max-w-[120px]">{user.country}</span>
+                          </div>
+                        ) : (
+                          <span className="text-slate-600 font-medium">—</span>
+                        )}
+                      </td>
                       <td className="px-4 py-4 text-[13px] text-slate-400">{user.joinDate}</td>
                       <td className="px-4 py-4 text-[13px] font-medium text-slate-300">{user.products}</td>
                       <td className="px-4 py-4">
@@ -301,9 +362,17 @@ export default function AdminUsersPage() {
             <div className="h-24 bg-linear-to-r from-emerald-500/20 to-blue-500/20" />
             <div className="px-8 pb-8">
               <div className="relative -mt-12 mb-6">
-                <div className="w-24 h-24 rounded-2xl bg-slate-900 border-4 border-[#0f172a] flex items-center justify-center text-3xl font-bold text-emerald-500 shadow-xl">
-                  {selectedUser.name.charAt(0)}
-                </div>
+                {selectedUser.avatarUrl ? (
+                  <img 
+                    src={selectedUser.avatarUrl} 
+                    alt={selectedUser.name} 
+                    className="w-24 h-24 rounded-2xl border-4 border-[#0f172a] object-cover shadow-xl" 
+                  />
+                ) : (
+                  <div className="w-24 h-24 rounded-2xl bg-slate-900 border-4 border-[#0f172a] flex items-center justify-center text-3xl font-bold text-emerald-500 shadow-xl">
+                    {selectedUser.name.charAt(0)}
+                  </div>
+                )}
                 <div className={`absolute bottom-2 right-0 w-5 h-5 rounded-full border-4 border-[#0f172a] ${
                   selectedUser.status === 'Active' ? 'bg-emerald-500' : 'bg-red-500'
                 }`} />
@@ -323,6 +392,15 @@ export default function AdminUsersPage() {
                   <div className="bg-slate-900/50 p-4 rounded-2xl border border-slate-800">
                     <p className="text-xs text-slate-500 font-bold uppercase tracking-wider mb-1">Products</p>
                     <p className="text-sm font-medium text-emerald-400">{selectedUser.products} Items</p>
+                  </div>
+                  <div className="bg-slate-900/50 p-4 rounded-2xl border border-slate-800 col-span-2">
+                    <p className="text-xs text-slate-500 font-bold uppercase tracking-wider mb-1">Country</p>
+                    <p className="text-sm font-medium flex items-center gap-1.5">
+                      <span className="text-base select-none">
+                        {selectedUser.country ? (COUNTRY_FLAGS[selectedUser.country] || '🌐') : '🌐'}
+                      </span>
+                      {selectedUser.country || 'Unknown'}
+                    </p>
                   </div>
                 </div>
 

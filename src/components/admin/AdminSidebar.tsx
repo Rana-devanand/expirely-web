@@ -9,19 +9,23 @@ import {
   Users, 
   Package, 
   Bell, 
+  BellRing,
   BarChart3, 
   FileText, 
   Settings, 
   LogOut,
   Search,
-  Mail
+  Mail,
+  MapPin
 } from 'lucide-react';
 
 const SIDEBAR_LINKS = [
   { name: 'Dashboard', icon: LayoutDashboard, href: '/admin/dashboard' },
   { name: 'Users', icon: Users, href: '/admin/users' },
+  { name: 'Locations', icon: MapPin, href: '/admin/locations' },
   { name: 'Products', icon: Package, href: '/admin/products' },
   { name: 'Notifications', icon: Bell, href: '/admin/notifications' },
+  { name: 'Push Notification', icon: BellRing, href: '/admin/push-notification' },
   { name: 'Email Broadcast', icon: Mail, href: '/admin/email-broadcast' },
   { name: 'Testers', icon: Search, href: '/admin/testers' },
   { name: 'Reports', icon: FileText, href: '/admin/reports' },
