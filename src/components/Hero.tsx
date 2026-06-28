@@ -1,5 +1,4 @@
 import HeroContent from './HeroContent';
-import HeroMockup from './HeroMockup';
 
 interface HeroProps {
   data: {
@@ -81,7 +80,7 @@ export default function Hero({ data }: HeroProps) {
 
       {/* ── Content ── */}
       <div className="relative z-10 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-1 items-center gap-12 md:grid-cols-2">
+        <div className="mx-auto flex max-w-5xl justify-center">
           <HeroContent
             badge={hero.badge}
             title={hero.title}
@@ -90,7 +89,6 @@ export default function Hero({ data }: HeroProps) {
             primaryButton={hero.buttons.primary}
             secondaryButton={hero.buttons.secondary}
           />
-          <HeroMockup />
         </div>
       </div>
 

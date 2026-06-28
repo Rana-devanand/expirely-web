@@ -1,9 +1,9 @@
 {
   "hero": {
     "badge": "Smart Product Management",
-    "title": "Never Forget Product Expiry",
-    "highlight": "Again",
-    "description": "Track product expiration dates, receive smart notifications, and reduce waste - all from one beautiful app.",
+    "title": "Track Every Expiry",
+    "highlight": "Before It Matters",
+    "description": "Expirely helps you organize groceries, household products, and daily essentials with smart expiry reminders, clear inventory tracking, and timely alerts so you can waste less, save more, and stay in control.",
     "buttons": {
       "primary": {
         "text": "Download App",
