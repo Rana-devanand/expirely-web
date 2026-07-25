@@ -12,7 +12,18 @@ export const reportApi = baseApi.injectEndpoints({
         responseHandler: (response) => response.blob(),
       }),
     }),
+    sendUserReportEmail: builder.mutation<any, { userId: string }>({
+      query: (body) => ({
+        url: '/reports/send-email-pdf',
+        method: 'POST',
+        body,
+      }),
+    }),
   }),
 });
 
-export const { useGetAdminReportsQuery, useLazyExportReportQuery } = reportApi;
+export const { 
+  useGetAdminReportsQuery, 
+  useLazyExportReportQuery,
+  useSendUserReportEmailMutation
+} = reportApi;

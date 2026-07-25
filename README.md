@@ -1,5 +1,18 @@
 This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
+## Advertising
+
+The dashboard displays a responsive Google AdSense unit after a pantry item is
+successfully saved. Configure these public environment variables:
+
+```env
+NEXT_PUBLIC_ADSENSE_CLIENT=ca-pub-XXXXXXXXXXXXXXXX
+NEXT_PUBLIC_ADSENSE_PANTRY_SLOT=XXXXXXXXXX
+```
+
+When these values are omitted, production renders no ad and development shows
+an `Ad preview` placeholder.
+
 ## Getting Started
 
 First, run the development server:

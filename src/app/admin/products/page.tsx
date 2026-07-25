@@ -11,11 +11,19 @@ import {
   AlertTriangle,
   ChevronLeft,
   ChevronRight,
+  ChevronUp,
+  ChevronDown,
   MoreVertical,
-  ArrowUpDown
+  ArrowUpDown,
+  X,
+  Maximize2,
+  Warehouse,
+  Hash,
+  Info
 } from 'lucide-react';
 import AdminSidebar from '@/components/admin/AdminSidebar';
 import AdminHeader from '@/components/admin/AdminHeader';
+import { useRouter } from 'next/navigation';
 
 import { useGetAdminProductsQuery } from '@/store/api/productApi';
 import { Loader2 } from 'lucide-react';
@@ -24,18 +32,106 @@ export default function AdminProductsPage() {
   const [isSidebarOpen, setIsSidebarOpen] = useState(true);
   const [activeTab, setActiveTab] = useState('All');
   const [searchQuery, setSearchQuery] = useState('');
+  const router = useRouter();
+  
+  // Pagination & Modal States
+  const [currentPage, setCurrentPage] = useState(1);
+  
+  // Sorting States
+  const [sortBy, setSortBy] = useState<'name' | 'category' | 'expiryDate' | 'addedBy' | 'created_at' | 'status'>('created_at');
+  const [sortOrder, setSortOrder] = useState<'asc' | 'desc'>('desc');
+  
+  const itemsPerPage = 8;
 
   const { data: productsResponse, isLoading } = useGetAdminProductsQuery();
   const products = productsResponse?.data || [];
 
+  const handleSearchChange = (val: string) => {
+    setSearchQuery(val);
+    setCurrentPage(1);
+  };
+
+  const handleTabChange = (tab: string) => {
+    setActiveTab(tab);
+    setCurrentPage(1);
+  };
+
+  const handleSort = (field: 'name' | 'category' | 'expiryDate' | 'addedBy' | 'created_at' | 'status') => {
+    if (sortBy === field) {
+      setSortOrder(prev => prev === 'asc' ? 'desc' : 'asc');
+    } else {
+      setSortBy(field);
+      setSortOrder('asc');
+    }
+    setCurrentPage(1);
+  };
+
   const filteredProducts = products.filter((p: any) => {
     const matchesSearch = p.name.toLowerCase().includes(searchQuery.toLowerCase()) || 
                           p.addedBy.toLowerCase().includes(searchQuery.toLowerCase());
-    const matchesTab = activeTab === 'All' || p.status === activeTab;
+    
+    let matchesTab = false;
+    if (activeTab === 'All') {
+      matchesTab = true;
+    } else if (activeTab === 'Active') {
+      matchesTab = p.status === 'good' || p.status === 'Active';
+    } else if (activeTab === 'Expiring Soon') {
+      matchesTab = p.status === 'warning' || p.status === 'Expiring Soon';
+    } else if (activeTab === 'Expired') {
+      matchesTab = p.status === 'expired' || p.status === 'Expired';
+    }
     return matchesSearch && matchesTab;
   });
 
+  const sortedProducts = [...filteredProducts].sort((a: any, b: any) => {
+    let aVal = a[sortBy];
+    let bVal = b[sortBy];
+
+    if (sortBy === 'created_at' || sortBy === 'expiryDate') {
+      aVal = aVal ? new Date(aVal).getTime() : 0;
+      bVal = bVal ? new Date(bVal).getTime() : 0;
+    } else if (typeof aVal === 'string') {
+      aVal = aVal.toLowerCase();
+      bVal = bVal.toLowerCase();
+    } else {
+      aVal = aVal || 0;
+      bVal = bVal || 0;
+    }
+
+    if (aVal < bVal) return sortOrder === 'asc' ? -1 : 1;
+    if (aVal > bVal) return sortOrder === 'asc' ? 1 : -1;
+    return 0;
+  });
+
+  const totalPages = Math.ceil(filteredProducts.length / itemsPerPage);
+  const startIndex = (currentPage - 1) * itemsPerPage;
+  const paginatedProducts = sortedProducts.slice(startIndex, startIndex + itemsPerPage);
+
   const TABS = ['All', 'Active', 'Expiring Soon', 'Expired'];
+
+  const SortHeader = ({ field, label }: { field: 'name' | 'category' | 'expiryDate' | 'addedBy' | 'created_at' | 'status'; label: string }) => {
+    const isCurrent = sortBy === field;
+    return (
+      <div 
+        className="flex items-center gap-1.5 cursor-pointer hover:text-slate-300 transition-colors select-none group"
+        onClick={(e) => {
+          e.stopPropagation();
+          handleSort(field);
+        }}
+      >
+        <span>{label}</span>
+        {isCurrent ? (
+          sortOrder === 'asc' ? (
+            <ChevronUp className="w-3.5 h-3.5 text-emerald-400" />
+          ) : (
+            <ChevronDown className="w-3.5 h-3.5 text-emerald-400" />
+          )
+        ) : (
+          <ArrowUpDown className="w-3 h-3 text-slate-600 group-hover:text-slate-400" />
+        )}
+      </div>
+    );
+  };
 
   return (
     <div className="flex min-h-screen bg-[#020617] text-slate-50 overflow-hidden font-sans">
@@ -70,7 +166,7 @@ export default function AdminProductsPage() {
                   type="text" 
                   placeholder="Search products..." 
                   value={searchQuery}
-                  onChange={(e) => setSearchQuery(e.target.value)}
+                  onChange={(e) => handleSearchChange(e.target.value)}
                   className="w-full bg-slate-900/40 border border-slate-800 rounded-xl py-2.5 pl-10 pr-4 text-sm focus:ring-2 focus:ring-emerald-500/20 outline-none transition-all placeholder:text-slate-600 text-slate-50"
                 />
               </div>
@@ -83,7 +179,7 @@ export default function AdminProductsPage() {
                   {TABS.map((tab) => (
                     <button
                       key={tab}
-                      onClick={() => setActiveTab(tab)}
+                      onClick={() => handleTabChange(tab)}
                       className={`px-4 rounded-lg text-xs font-bold transition-all whitespace-nowrap ${
                         activeTab === tab 
                           ? 'bg-emerald-500 text-white shadow-lg shadow-emerald-950/20' 
@@ -105,19 +201,32 @@ export default function AdminProductsPage() {
                 <thead>
                   <tr className="border-b border-slate-800 bg-slate-900/40">
                     <th className="px-6 py-4 text-[11px] font-bold text-slate-500 uppercase tracking-wider">
-                      <div className="flex items-center gap-2 cursor-pointer hover:text-slate-300 transition-colors">
-                        Product Name <ArrowUpDown className="w-3 h-3" />
-                      </div>
+                      <SortHeader field="name" label="Product Name" />
                     </th>
-                    <th className="px-6 py-4 text-[11px] font-bold text-slate-500 uppercase tracking-wider">Category</th>
-                    <th className="px-6 py-4 text-[11px] font-bold text-slate-500 uppercase tracking-wider">Expiry Date</th>
-                    <th className="px-6 py-4 text-[11px] font-bold text-slate-500 uppercase tracking-wider">Added By</th>
-                    <th className="px-6 py-4 text-[11px] font-bold text-slate-500 uppercase tracking-wider">Status</th>
+                    <th className="px-6 py-4 text-[11px] font-bold text-slate-500 uppercase tracking-wider">
+                      <SortHeader field="category" label="Category" />
+                    </th>
+                    <th className="px-6 py-4 text-[11px] font-bold text-slate-500 uppercase tracking-wider">
+                      <SortHeader field="expiryDate" label="Expiry Date" />
+                    </th>
+                    <th className="px-6 py-4 text-[11px] font-bold text-slate-500 uppercase tracking-wider">
+                      <SortHeader field="addedBy" label="Added By" />
+                    </th>
+                    <th className="px-6 py-4 text-[11px] font-bold text-slate-500 uppercase tracking-wider">
+                      <SortHeader field="created_at" label="Created Date" />
+                    </th>
+                    <th className="px-6 py-4 text-[11px] font-bold text-slate-500 uppercase tracking-wider">
+                      <SortHeader field="status" label="Status" />
+                    </th>
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-slate-800">
-                  {filteredProducts.map((product: any) => (
-                    <tr key={product.id} className="hover:bg-slate-800/30 transition-colors group">
+                  {paginatedProducts.map((product: any) => (
+                    <tr 
+                      key={product.id} 
+                      onClick={() => router.push(`/admin/products/${product.id}`)}
+                      className="hover:bg-slate-800/30 transition-colors group cursor-pointer"
+                    >
                       <td className="px-6 py-4">
                         <div className="flex items-center gap-3">
                           <div className="w-10 h-10 rounded-lg bg-slate-800 flex items-center justify-center overflow-hidden border border-slate-700 shadow-sm group-hover:border-emerald-500/30 transition-all">
@@ -158,6 +267,12 @@ export default function AdminProductsPage() {
                         </div>
                       </td>
                       <td className="px-6 py-4">
+                        <div className="flex items-center gap-2 text-[13px] text-slate-400">
+                          <Calendar className="w-3.5 h-3.5 text-slate-500" />
+                          {product.created_at ? new Date(product.created_at).toLocaleDateString() : 'N/A'}
+                        </div>
+                      </td>
+                      <td className="px-6 py-4">
                         <span className={`px-2.5 py-1 rounded-full text-[10px] font-bold capitalize ${
                           product.status === 'good' || product.status === 'Active'
                             ? 'bg-emerald-500/10 text-emerald-400 border border-emerald-500/20' 
@@ -172,7 +287,7 @@ export default function AdminProductsPage() {
                   ))}
                   {filteredProducts.length === 0 && !isLoading && (
                     <tr>
-                      <td colSpan={5} className="px-6 py-20 text-center">
+                      <td colSpan={6} className="px-6 py-20 text-center">
                         <div className="flex flex-col items-center gap-2">
                           <Package className="w-10 h-10 text-slate-700" />
                           <p className="text-slate-500 text-sm">No products found</p>
@@ -186,20 +301,36 @@ export default function AdminProductsPage() {
 
             {/* Pagination Controls */}
             <div className="px-6 py-4 border-t border-slate-800 flex items-center justify-between bg-slate-900/40">
-              <span className="text-xs text-slate-500">Showing {filteredProducts.length} products</span>
-              <div className="flex items-center gap-1">
-                <button className="p-1.5 rounded-lg border border-slate-800 text-slate-500 hover:text-slate-300 hover:bg-slate-800 transition-all disabled:opacity-50" disabled>
-                  <ChevronLeft className="w-4 h-4" />
-                </button>
-                <button className="w-8 h-8 rounded-lg bg-emerald-500/10 text-emerald-400 font-bold text-xs border border-emerald-500/20">1</button>
-                <button className="p-1.5 rounded-lg border border-slate-800 text-slate-500 hover:text-slate-300 hover:bg-slate-800 transition-all disabled:opacity-50" disabled>
-                  <ChevronRight className="w-4 h-4" />
-                </button>
-              </div>
+              <span className="text-xs text-slate-500">
+                Showing {paginatedProducts.length} of {filteredProducts.length} products
+              </span>
+              {totalPages > 1 && (
+                <div className="flex items-center gap-1">
+                  <button 
+                    onClick={() => setCurrentPage(prev => Math.max(prev - 1, 1))}
+                    disabled={currentPage === 1}
+                    className="p-1.5 rounded-lg border border-slate-800 text-slate-400 hover:text-slate-200 hover:bg-slate-800 transition-all disabled:opacity-40"
+                  >
+                    <ChevronLeft className="w-4 h-4" />
+                  </button>
+                  <span className="text-xs text-slate-400 px-3 font-semibold">
+                    Page {currentPage} of {totalPages}
+                  </span>
+                  <button 
+                    onClick={() => setCurrentPage(prev => Math.min(prev + 1, totalPages))}
+                    disabled={currentPage === totalPages}
+                    className="p-1.5 rounded-lg border border-slate-800 text-slate-400 hover:text-slate-200 hover:bg-slate-800 transition-all disabled:opacity-40"
+                  >
+                    <ChevronRight className="w-4 h-4" />
+                  </button>
+                </div>
+              )}
             </div>
           </div>
         </main>
       </div>
+
+
 
       <style jsx global>{`
         .custom-scrollbar::-webkit-scrollbar {

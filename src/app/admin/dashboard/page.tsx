@@ -19,10 +19,14 @@ import {
   Clock,
   Loader2,
   HardDrive,
-  Activity
+  Activity,
+  Tags
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useGetStatsQuery, useGetChartsQuery } from '@/store/api/dashboardApi';
+import { useGetAdminCategoriesQuery } from '@/store/api/categoryApi';
+import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 import { 
   ResponsiveContainer, 
   LineChart, 
@@ -63,11 +67,51 @@ const CustomTooltip = ({ active, payload, label }: any) => {
 };
 
 export default function AdminDashboardPage() {
+  const router = useRouter();
   const [isSidebarOpen, setIsSidebarOpen] = useState(true);
 
   // Use RTK Query hooks for caching and automatic state management
   const { data: statsData, isLoading: isStatsLoading } = useGetStatsQuery();
   const { data: chartsData, isLoading: isChartsLoading } = useGetChartsQuery();
+  const { data: adminCategories = [], isLoading: isAdminCategoriesLoading } = useGetAdminCategoriesQuery();
+
+  const weeklyCategoriesData = React.useMemo(() => {
+    if (!adminCategories) return [];
+    
+    // Get the last 5 weeks
+    const weeks: { name: string; start: Date; end: Date; count: number }[] = [];
+    const now = new Date();
+    
+    // Find the start of the current week (Sunday)
+    const currentDay = now.getDay();
+    const startOfCurrentWeek = new Date(now);
+    startOfCurrentWeek.setDate(now.getDate() - currentDay);
+    startOfCurrentWeek.setHours(0, 0, 0, 0);
+
+    for (let i = 4; i >= 0; i--) {
+      const start = new Date(startOfCurrentWeek);
+      start.setDate(startOfCurrentWeek.getDate() - i * 7);
+      
+      const end = new Date(start);
+      end.setDate(start.getDate() + 6);
+      end.setHours(23, 59, 59, 999);
+      
+      const label = `Wk ${start.toLocaleDateString(undefined, { month: 'numeric', day: 'numeric' })}`;
+      weeks.push({ name: label, start, end, count: 0 });
+    }
+
+    // Populate counts
+    adminCategories.forEach((cat: any) => {
+      const createdDate = new Date(cat.created_at);
+      weeks.forEach((w) => {
+        if (createdDate >= w.start && createdDate <= w.end) {
+          w.count++;
+        }
+      });
+    });
+
+    return weeks.map(w => ({ name: w.name, "Categories": w.count }));
+  }, [adminCategories]);
 
   const stats = statsData?.data || {
     totalUsers: 0,
@@ -128,7 +172,10 @@ export default function AdminDashboardPage() {
               <motion.div 
                 key={stat.label}
                 whileHover={{ y: -2 }}
-                className="bg-slate-900/40 p-4 rounded-2xl border border-slate-800/50 hover:border-emerald-500/20 transition-all flex flex-col gap-3 shadow-sm"
+                onClick={() => {
+                  if (stat.label === 'Products Added') router.push('/admin/products');
+                }}
+                className="bg-slate-900/40 p-4 rounded-2xl border border-slate-800/50 hover:border-emerald-500/20 transition-all flex flex-col gap-3 shadow-sm cursor-pointer"
               >
                 <div className="flex items-center justify-between">
                   <div className={`p-2 rounded-lg ${stat.bg} ${stat.color}`}>
@@ -208,51 +255,22 @@ export default function AdminDashboardPage() {
               </div>
 
               <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-                {/* Category Breakdown */}
+                {/* Weekly Category Creation Chart */}
                 <div className="bg-slate-900/40 p-6 rounded-2xl border border-slate-800/50 shadow-sm h-full flex flex-col">
-                  <h3 className="text-base font-bold mb-6">Product Categories</h3>
-                  <div className="h-[260px] w-full flex-1 relative">
+                  <h3 className="text-base font-bold mb-6 flex items-center gap-2">
+                    <Tags className="w-5 h-5 text-emerald-400" />
+                    Categories Created Weekly
+                  </h3>
+                  <div className="h-[260px] w-full flex-1">
                     <ResponsiveContainer width="100%" height="100%">
-                      <PieChart>
-                        <Pie
-                          data={charts.categoryData}
-                          cx="50%"
-                          cy="50%"
-                          innerRadius={60}
-                          outerRadius={80}
-                          paddingAngle={5}
-                          dataKey="value"
-                        >
-                          {charts.categoryData.map((entry: any, index: number) => (
-                            <Cell key={`cell-${index}`} fill={entry.color} stroke="none" />
-                          ))}
-                        </Pie>
+                      <BarChart data={weeklyCategoriesData}>
+                        <CartesianGrid strokeDasharray="3 3" stroke="#1e293b" vertical={false} />
+                        <XAxis dataKey="name" stroke="#475569" fontSize={10} tickLine={false} axisLine={false} dy={10} />
+                        <YAxis stroke="#475569" fontSize={10} tickLine={false} axisLine={false} />
                         <Tooltip content={<CustomTooltip />} />
-                      </PieChart>
+                        <Bar dataKey="Categories" fill="#10b981" radius={[4, 4, 0, 0]} barSize={35} />
+                      </BarChart>
                     </ResponsiveContainer>
-                    {/* Labels overlay calculation */}
-                    {(() => {
-                      const total = charts.categoryData.reduce((acc: number, item: any) => acc + (item.value || 0), 0);
-                      const max = Math.max(...charts.categoryData.map((item: any) => item.value || 0));
-                      const percentage = total > 0 ? ((max / total) * 100).toFixed(0) : 0;
-                      return (
-                        <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-                          <div className="text-center">
-                            <p className="text-slate-400 text-[10px] font-bold uppercase">Top</p>
-                            <p className="text-2xl font-bold">{percentage}%</p>
-                          </div>
-                        </div>
-                      );
-                    })()}
-                  </div>
-                  <div className="grid grid-cols-2 gap-4 mt-4">
-                     {charts.categoryData.map((item: any) => (
-                       <div key={item.name} className="flex items-center gap-2">
-                         <div className="w-2.5 h-2.5 rounded-full" style={{ backgroundColor: item.color }} />
-                         <span className="text-sm font-medium text-slate-300">{item.name}</span>
-                         <span className="text-xs text-slate-500 ml-auto">{item.value} items</span>
-                       </div>
-                     ))}
                   </div>
                 </div>
 
@@ -282,6 +300,58 @@ export default function AdminDashboardPage() {
                     </ResponsiveContainer>
                   </div>
                 </div>
+              </div>
+
+              {/* System Categories Overview Card */}
+              <div className="bg-slate-900/40 p-6 rounded-2xl border border-slate-800/50 shadow-sm overflow-hidden">
+                <div className="flex items-center justify-between mb-6">
+                  <div>
+                    <h3 className="text-base font-bold flex items-center gap-2">
+                      <Tags className="w-5 h-5 text-emerald-400" />
+                      System Categories
+                    </h3>
+                    <p className="text-slate-400 text-xs mt-1">Summary of categories available in the application</p>
+                  </div>
+                  <Link 
+                    href="/admin/categories"
+                    className="text-xs font-bold text-emerald-400 hover:text-emerald-300 transition-colors"
+                  >
+                    Manage Categories &rarr;
+                  </Link>
+                </div>
+
+                {isAdminCategoriesLoading ? (
+                  <div className="flex items-center justify-center py-8">
+                    <Loader2 className="w-6 h-6 text-emerald-500 animate-spin" />
+                  </div>
+                ) : adminCategories.length > 0 ? (
+                  <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+                    {adminCategories.slice(0, 8).map((cat: any) => (
+                      <div 
+                        key={cat.id} 
+                        className="bg-slate-950/60 p-4 rounded-xl border border-slate-800/50 flex items-center gap-3.5 hover:border-emerald-500/20 transition-all group"
+                      >
+                        <div className="w-10 h-10 rounded-xl bg-slate-900 border border-slate-800 flex items-center justify-center text-lg shrink-0 group-hover:scale-105 transition-transform">
+                          {cat.icon || '📦'}
+                        </div>
+                        <div className="min-w-0">
+                          <p className="font-bold text-xs text-slate-200 truncate">{cat.name}</p>
+                          <div className="flex items-center gap-1.5 mt-1.5">
+                            <div 
+                              className="w-2 h-2 rounded-full shrink-0" 
+                              style={{ backgroundColor: cat.color || '#64748b' }}
+                            />
+                            <span className="text-[9px] font-semibold text-slate-500 uppercase tracking-wider truncate">
+                              {cat.users ? 'Custom' : 'System'}
+                            </span>
+                          </div>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                ) : (
+                  <p className="text-center py-6 text-slate-500 text-xs font-semibold">No categories registered.</p>
+                )}
               </div>
             </>
           )}

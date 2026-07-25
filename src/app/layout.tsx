@@ -1,5 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
+import Script from "next/script";
 import "./globals.css";
 import { Toaster } from "react-hot-toast";
 
@@ -55,8 +56,19 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const adsenseClient = process.env.NEXT_PUBLIC_ADSENSE_CLIENT;
+
   return (
     <html lang="en">
+      {adsenseClient && (
+        <Script
+          id="google-adsense"
+          async
+          strategy="afterInteractive"
+          crossOrigin="anonymous"
+          src={`https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${adsenseClient}`}
+        />
+      )}
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >

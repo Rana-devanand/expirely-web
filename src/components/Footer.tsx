@@ -98,16 +98,6 @@ export default function Footer({ data }: FooterProps) {
                   <span>{footer.contact.email}</span>
                 </div>
               </li>
-              <li>
-                <Link href="/admin/login"
-                  className="text-sm transition-colors"
-                  style={{ color: 'var(--color-text-muted)' }}
-                  // onMouseEnter={(e) => (e.currentTarget as HTMLElement).style.color = 'var(--brand-400)'}
-                  // onMouseLeave={(e) => (e.currentTarget as HTMLElement).style.color = 'var(--color-text-muted)'}
-                >
-                  {footer.contact.adminLogin}
-                </Link>
-              </li>
             </ul>
           </div>
         </div>

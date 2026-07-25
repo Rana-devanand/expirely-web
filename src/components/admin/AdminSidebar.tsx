@@ -13,10 +13,13 @@ import {
   BarChart3, 
   FileText, 
   Settings, 
-  LogOut,
-  Search,
-  Mail,
-  MapPin
+  LogOut, 
+  Search, 
+  Mail, 
+  MapPin,
+  Tags,
+  Braces,
+  Send
 } from 'lucide-react';
 
 const SIDEBAR_LINKS = [
@@ -24,11 +27,12 @@ const SIDEBAR_LINKS = [
   { name: 'Users', icon: Users, href: '/admin/users' },
   { name: 'Locations', icon: MapPin, href: '/admin/locations' },
   { name: 'Products', icon: Package, href: '/admin/products' },
+  { name: 'Categories', icon: Tags, href: '/admin/categories' },
   { name: 'Notifications', icon: Bell, href: '/admin/notifications' },
   { name: 'Push Notification', icon: BellRing, href: '/admin/push-notification' },
   { name: 'Email Broadcast', icon: Mail, href: '/admin/email-broadcast' },
-  { name: 'Testers', icon: Search, href: '/admin/testers' },
   { name: 'Reports', icon: FileText, href: '/admin/reports' },
+  { name: 'Email Reports', icon: Send, href: '/admin/send-reports' },
   { name: 'Settings', icon: Settings, href: '/admin/settings' },
 ];
 
@@ -54,7 +58,7 @@ export default function AdminSidebar({ isOpen }: AdminSidebarProps) {
     <aside 
       className={`${
         isOpen ? 'w-56' : 'w-16'
-      } transition-all duration-300 border-r border-slate-800 bg-[#020617] flex flex-col z-50`}
+      } transition-all duration-300 border-r border-slate-800 bg-[#020617] flex flex-col z-50 h-screen overflow-hidden shrink-0`}
     >
       <div className="p-4 flex items-center gap-2.5">
         <div className="w-7 h-7 bg-emerald-500 rounded-lg flex items-center justify-center shrink-0 overflow-hidden relative">
@@ -63,7 +67,7 @@ export default function AdminSidebar({ isOpen }: AdminSidebarProps) {
         {isOpen && <span className="font-bold text-lg tracking-tight text-slate-50">Expirely</span>}
       </div>
 
-      <nav className="flex-1 px-3 mt-4 space-y-1">
+      <nav className="flex-1 px-3 mt-4 space-y-1 overflow-y-auto custom-scrollbar">
         <div className="text-xs font-bold text-slate-500 uppercase tracking-wider px-2 mb-4">
           {isOpen ? 'Menu' : '•••'}
         </div>

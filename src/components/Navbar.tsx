@@ -28,14 +28,14 @@ export default function Navbar() {
   return (
     <nav
       className={`fixed top-0 left-0 w-full z-50 transition-all duration-300 ${
-        scrolled
+        scrolled || isOpen
           ? 'backdrop-blur-md border-b'
           : 'bg-transparent'
       }`}
-      style={scrolled ? {
-        background: 'rgba(8,13,30,0.85)',
+      style={scrolled || isOpen ? {
+        background: 'rgba(8,13,30,0.98)',
         borderColor: 'rgba(168,85,247,0.2)',
-        boxShadow: '0 8px 30px rgba(0,0,0,0.4)',
+        boxShadow: '0 8px 30px rgba(0,0,0,0.5)',
       } : {}}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -89,6 +89,12 @@ export default function Navbar() {
           {/* Action Buttons */}
           <div className="hidden md:flex items-center gap-4">
             <Link
+              href="/login"
+              className="text-slate-400 hover:text-white text-xs font-bold transition-all px-4 py-2"
+            >
+              Login
+            </Link>
+            <Link
               href="/onboarding"
               className="relative overflow-hidden group px-5 py-2.5 rounded-full font-bold text-xs text-white flex items-center gap-1.5 active:scale-95 transition-all"
               style={{ background: 'var(--gradient-brand)', boxShadow: 'var(--shadow-brand)' }}
@@ -138,18 +144,18 @@ export default function Navbar() {
                   </Link>
                 );
               })}
-              <div className="pt-4 flex flex-col gap-2.5">
+              <div className="pt-4 flex flex-col gap-3">
                 <Link
-                  href="/admin/login"
-                  className="w-full text-center py-3 text-sm font-semibold rounded-xl border"
+                  href="/login"
+                  className="w-full text-center py-3 text-sm font-semibold rounded-xl border transition-colors hover:bg-slate-800"
                   style={{ color: 'var(--color-text-muted)', borderColor: 'rgba(168,85,247,0.2)' }}
                   onClick={() => setIsOpen(false)}
                 >
-                  Admin Login
+                  Sign In
                 </Link>
                 <Link
                   href="/onboarding"
-                  className="w-full py-3 rounded-xl font-bold text-sm text-center text-white"
+                  className="w-full py-3 rounded-xl font-bold text-sm text-center text-white transition-all active:scale-95"
                   style={{ background: 'var(--gradient-brand)', boxShadow: 'var(--shadow-brand)' }}
                   onClick={() => setIsOpen(false)}
                 >

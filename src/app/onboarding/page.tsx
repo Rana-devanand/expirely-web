@@ -40,7 +40,7 @@ export default function OnboardingPage() {
     if (currentSlide < ONBOARDING_DATA.length - 1) {
       setCurrentSlide(currentSlide + 1);
     } else {
-      window.location.href = '/testers';
+      window.location.href = '/login';
     }
   };
 

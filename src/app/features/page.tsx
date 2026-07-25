@@ -205,8 +205,8 @@ export default function FeaturesPage() {
             Become a beta tester and get exclusive first access to barcode scanning, customizable alerts, and dashboard features.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
-            <Link href="/testers" className="bg-emerald-500 text-white px-8 py-3.5 rounded-xl font-bold text-sm hover:bg-emerald-600 transition-all flex items-center gap-2 shadow-xl shadow-emerald-950/20 active:scale-95 group">
-              Apply as Tester
+            <Link href="/login" className="bg-emerald-500 text-white px-8 py-3.5 rounded-xl font-bold text-sm hover:bg-emerald-600 transition-all flex items-center gap-2 shadow-xl shadow-emerald-950/20 active:scale-95 group">
+              Get Started Now
               <ArrowRight className="w-4 h-4 group-hover:translate-x-0.5 transition-transform" />
             </Link>
             <Link href="/" className="text-slate-400 hover:text-white px-6 py-3.5 text-sm font-semibold transition-colors">

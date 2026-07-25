@@ -7,6 +7,11 @@ export const categoryApi = baseApi.injectEndpoints({
       providesTags: ['Categories'],
       transformResponse: (response: any) => response.data,
     }),
+    getAdminCategories: builder.query<any[], void>({
+      query: () => '/categories/admin',
+      providesTags: ['Categories'],
+      transformResponse: (response: any) => response.data,
+    }),
     createCategory: builder.mutation<any, { name: string; color?: string; icon?: string }>({
       query: (data) => ({
         url: '/categories',
@@ -22,11 +27,20 @@ export const categoryApi = baseApi.injectEndpoints({
       }),
       invalidatesTags: ['Categories'],
     }),
+    adminDeleteCategory: builder.mutation<any, string>({
+      query: (id) => ({
+        url: `/categories/admin/${id}`,
+        method: 'DELETE',
+      }),
+      invalidatesTags: ['Categories'],
+    }),
   }),
 });
 
 export const { 
   useGetAllCategoriesQuery, 
+  useGetAdminCategoriesQuery,
   useCreateCategoryMutation, 
-  useDeleteCategoryMutation 
+  useDeleteCategoryMutation,
+  useAdminDeleteCategoryMutation
 } = categoryApi;
