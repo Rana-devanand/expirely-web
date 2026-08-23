@@ -10,29 +10,26 @@ import {
   Package, 
   Bell, 
   BellRing,
-  BarChart3, 
-  FileText, 
   Settings, 
   LogOut, 
-  Search, 
   Mail, 
   MapPin,
   Tags,
-  Braces,
-  Send
+  Home,
+  Database
 } from 'lucide-react';
 
 const SIDEBAR_LINKS = [
   { name: 'Dashboard', icon: LayoutDashboard, href: '/admin/dashboard' },
   { name: 'Users', icon: Users, href: '/admin/users' },
+  { name: 'Households', icon: Home, href: '/admin/households' },
   { name: 'Locations', icon: MapPin, href: '/admin/locations' },
   { name: 'Products', icon: Package, href: '/admin/products' },
   { name: 'Categories', icon: Tags, href: '/admin/categories' },
+  { name: 'Database Tables', icon: Database, href: '/admin/database' },
   { name: 'Notifications', icon: Bell, href: '/admin/notifications' },
   { name: 'Push Notification', icon: BellRing, href: '/admin/push-notification' },
   { name: 'Email Broadcast', icon: Mail, href: '/admin/email-broadcast' },
-  { name: 'Reports', icon: FileText, href: '/admin/reports' },
-  { name: 'Email Reports', icon: Send, href: '/admin/send-reports' },
   { name: 'Settings', icon: Settings, href: '/admin/settings' },
 ];
 
@@ -67,7 +64,7 @@ export default function AdminSidebar({ isOpen }: AdminSidebarProps) {
         {isOpen && <span className="font-bold text-lg tracking-tight text-slate-50">Expirely</span>}
       </div>
 
-      <nav className="flex-1 px-3 mt-4 space-y-1 overflow-y-auto custom-scrollbar">
+      <nav className="flex-1 px-3 mt-4 space-y-1 overflow-y-auto [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
         <div className="text-xs font-bold text-slate-500 uppercase tracking-wider px-2 mb-4">
           {isOpen ? 'Menu' : '•••'}
         </div>
