@@ -16,6 +16,7 @@
           { "name": "Features", "href": "/features" },
           { "name": "How it works", "href": "/how-it-works" },
           { "name": "Smart Recipes", "href": "/recipes" },
+          { "name": "Premium", "href": "/premium" },
           { "name": "Pricing", "href": "/pricing" }
         ]
       },
@@ -32,6 +33,7 @@
         "items": [
           { "name": "Privacy Policy", "href": "/privacy-policy" },
           { "name": "Terms of Service", "href": "/terms-conditions" },
+          { "name": "Cancellation & Refund Policy", "href": "/cancellation-policy" },
           { "name": "Delete Account", "href": "/delete-account" }
         ]
       }

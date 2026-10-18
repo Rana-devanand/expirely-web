@@ -33,6 +33,17 @@ export default function PricingPage() {
               </p>
             </Reveal>
             <PricingSection showHeader={false} />
+            <p className="mx-auto mt-2 max-w-xl pb-8 text-center text-sm font-medium text-white/60">
+              Want the full list?{' '}
+              <Link href="/premium" className="font-bold text-[#7FB0FF] underline">
+                See everything in Free and Premium
+              </Link>
+              . Cancel any time, see the{' '}
+              <Link href="/cancellation-policy" className="font-bold text-[#7FB0FF] underline">
+                Cancellation and Refund Policy
+              </Link>
+              .
+            </p>
           </>
         ) : (
           <Reveal className="mx-auto max-w-xl text-center">

@@ -3,6 +3,7 @@ import Navbar from '@/components/Navbar';
 import Hero from '@/components/Hero';
 import Features from '@/components/Features';
 import AiShowcase from '@/components/AiShowcase';
+import CompareSection from '@/components/CompareSection';
 import HowItWorks from '@/components/HowItWorks';
 import Testimonials from '@/components/Testimonials';
 import PricingSection from '@/components/PricingSection';
@@ -32,6 +33,7 @@ export default function Home() {
         <Features data={featuresData} />
         <AiShowcase />
         <HowItWorks data={howItWorksData} />
+        <CompareSection />
         <Testimonials data={testimonialsData} />
         {PREMIUM_ENABLED && <PricingSection />}
         <FAQ data={{ faq: { ...faqData.faq, questions: faqData.faq.questions.slice(0, 5) } }} />

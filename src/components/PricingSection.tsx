@@ -23,15 +23,21 @@ const FALLBACK: Pricing = {
 const FREE_FEATURES = [
   'Track products and expiry dates',
   'Expiry reminders and barcode scanning',
-  'Recipes, meal planner and storage tips',
-  'Zones and categories',
+  'Calendar, shopping list and family household',
+  'Recipes, meal planner, storage tips and nutrition insights',
   'A few free AI scans every month',
 ];
 
-const PREMIUM_FEATURES = [
-  'Everything in Free',
-  'Unlimited AI product scan: one photo fills in name, expiry date and more',
-  'No ads and no daily video',
+// Bold lead, then a short line that says what it means for the customer.
+const PREMIUM_FEATURES: { title: string; text?: string }[] = [
+  { title: 'Everything in Free' },
+  { title: 'Unlimited AI product scan', text: 'One photo fills in the name, brand, category, size, price and more' },
+  { title: 'Estimated expiry dates', text: 'Only a manufacturing date on the pack? AI suggests the expiry for you to confirm' },
+  { title: 'Ingredients and allergens', text: 'Read from the label, so you know what is in every product' },
+  { title: 'Reads English, Arabic and Hindi labels' },
+  { title: 'PDF reports', text: 'Your whole inventory, one category, or a single product' },
+  { title: 'No ads, no daily add limit' },
+  { title: '7-day free trial', text: 'For first-time subscribers. Cancel any time' },
 ];
 
 function countryFromLocale(): string | null {
@@ -150,9 +156,12 @@ export default function PricingSection({ showHeader = true }: { showHeader?: boo
                 </p>
                 <ul className="mt-5 space-y-3">
                   {PREMIUM_FEATURES.map((f) => (
-                    <li key={f} className="flex items-start gap-2.5 text-sm font-semibold">
+                    <li key={f.title} className="flex items-start gap-2.5 text-sm">
                       <Check className="mt-0.5 h-4 w-4 shrink-0 text-[#F7B6BB]" />
-                      {f}
+                      <span>
+                        <span className="font-extrabold">{f.title}</span>
+                        {f.text && <span className="mt-0.5 block text-[12.5px] font-medium leading-snug text-white/70">{f.text}</span>}
+                      </span>
                     </li>
                   ))}
                 </ul>
@@ -160,8 +169,14 @@ export default function PricingSection({ showHeader = true }: { showHeader?: boo
                   href={`/pay?interval=${interval}`}
                   className="mt-8 flex w-full items-center justify-center rounded-full bg-white px-6 py-3.5 text-sm font-extrabold text-[#123270] transition hover:-translate-y-0.5 active:scale-95"
                 >
-                  Go Premium
+                  Start 7-day free trial
                 </Link>
+                <p className="mt-3 text-center text-[11px] font-bold text-white/70">
+                  Free for 7 days for first-time subscribers. Cancel any time.
+                </p>
+                <p className="mt-1 text-center text-[11px] font-medium text-white/55">
+                  Secure checkout by Dodo Payments. We never see your card.
+                </p>
               </div>
             </div>
           </Reveal>

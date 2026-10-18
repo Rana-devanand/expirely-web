@@ -10,7 +10,8 @@ import { PREMIUM_ENABLED } from '@/lib/flags';
 
 const navLinks = [
   { name: 'Features', href: '/features' },
-  { name: 'Recipes', href: '/recipes' },
+  // { name: 'Recipes', href: '/recipes' },
+  { name: 'Premium', href: '/premium' },
   ...(PREMIUM_ENABLED ? [{ name: 'Pricing', href: '/pricing' }] : []),
   { name: 'About', href: '/about' },
   { name: 'Contact', href: '/contact' },
