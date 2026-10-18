@@ -61,6 +61,13 @@ function AutoLoginComponent() {
           
           toast.success(`Welcome back, ${user.username}! Logged in.`, { id: toastId });
           
+          // Optional same-site destination, e.g. /pay (never an external URL).
+          const next = searchParams.get('next');
+          if (next && next.startsWith('/') && !next.startsWith('//') && user.role !== 'ADMIN') {
+            router.push(next);
+            return;
+          }
+
           // Redirect based on role
           if (user.role === 'ADMIN') {
             router.push('/admin/dashboard');
@@ -81,11 +88,11 @@ function AutoLoginComponent() {
   }, [searchParams, router]);
 
   return (
-    <div className="min-h-screen bg-[#f8fafc] flex flex-col items-center justify-center gap-4 text-slate-800">
-      <Loader2 className="w-10 h-10 text-emerald-500 animate-spin" />
+    <div className="min-h-screen flex flex-col items-center justify-center gap-4 text-white">
+      <Loader2 className="w-10 h-10 text-[#7FB0FF] animate-spin" />
       <div className="text-center space-y-1">
-        <h2 className="text-md font-extrabold text-slate-900">Welcome to expirely web</h2>
-        <p className="text-xs text-slate-500 font-bold uppercase tracking-wider">Synchronizing session...</p>
+        <h2 className="text-md font-extrabold text-white">Welcome to expirely web</h2>
+        <p className="text-xs text-white/70 font-bold uppercase tracking-wider">Synchronizing session...</p>
       </div>
     </div>
   );
@@ -94,8 +101,8 @@ function AutoLoginComponent() {
 export default function AutoLoginPage() {
   return (
     <Suspense fallback={
-      <div className="min-h-screen bg-[#f8fafc] flex flex-col items-center justify-center gap-4 text-slate-800">
-        <Loader2 className="w-10 h-10 text-emerald-500 animate-spin" />
+      <div className="min-h-screen flex flex-col items-center justify-center gap-4 text-white">
+        <Loader2 className="w-10 h-10 text-[#7FB0FF] animate-spin" />
       </div>
     }>
       <AutoLoginComponent />

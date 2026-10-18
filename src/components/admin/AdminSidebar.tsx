@@ -16,7 +16,8 @@ import {
   MapPin,
   Tags,
   Home,
-  Database
+  Database,
+  Wallet
 } from 'lucide-react';
 
 const SIDEBAR_LINKS = [
@@ -27,6 +28,7 @@ const SIDEBAR_LINKS = [
   { name: 'Products', icon: Package, href: '/admin/products' },
   { name: 'Categories', icon: Tags, href: '/admin/categories' },
   { name: 'Database Tables', icon: Database, href: '/admin/database' },
+  { name: 'Payments', icon: Wallet, href: '/admin/payments' },
   { name: 'Notifications', icon: Bell, href: '/admin/notifications' },
   { name: 'Push Notification', icon: BellRing, href: '/admin/push-notification' },
   { name: 'Email Broadcast', icon: Mail, href: '/admin/email-broadcast' },

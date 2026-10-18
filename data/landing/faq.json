@@ -1,27 +1,17 @@
 {
   "faq": {
+    "badge": "FAQ",
     "title": "Frequently asked questions",
     "questions": [
-      {
-        "question": "Is Expirely free to use?",
-        "answer": "Yes, Expirely is completely free for individual users to track their home products."
-      },
-      {
-        "question": "Which platforms is Expirely available on?",
-        "answer": "Expirely is available on iOS, Android, and via our Web App for seamless tracking across devices."
-      },
-      {
-        "question": "How does barcode scanning work?",
-        "answer": "Simply point your camera at any product barcode, and Expirely will automatically fetch the details."
-      },
-      {
-        "question": "Can I share lists with family members?",
-        "answer": "Yes, you can create shared households to manage products together with your family or roommates."
-      },
-      {
-        "question": "Is my data secure?",
-        "answer": "Absolutely. We use industry-standard encryption to ensure your personal and inventory data is always protected."
-      }
+      { "question": "Is Expirely free to use?", "answer": "Yes. Tracking your products and getting expiry reminders is free. Optional paid features may be offered later to unlock extra tools." },
+      { "question": "Which platforms is Expirely available on?", "answer": "Expirely is available on Android and on the web, so you can check your inventory from any device." },
+      { "question": "How does barcode scanning work?", "answer": "Point your camera at a product barcode and Expirely fetches the product details for you. You only confirm the expiry date." },
+      { "question": "Can I add a product without a barcode?", "answer": "Yes. You can add any product manually by entering its name, category and expiry date." },
+      { "question": "How do reminders work?", "answer": "Expirely sends you a notification before a product expires so you have time to use it. You choose how early you want to be reminded." },
+      { "question": "Can I share my inventory with family?", "answer": "Yes. Create a household to manage products together with your family or roommates." },
+      { "question": "Is my data secure?", "answer": "Your data is protected in transit with encryption, and you can delete your account and data at any time from the Delete Account page." },
+      { "question": "How do I delete my account?", "answer": "Open the Delete Account page for step-by-step instructions. You can delete your account from inside the app or send us a request." },
+      { "question": "How can I contact support?", "answer": "Email us at dev.cloudapp93@gmail.com or use the Contact page. We read every message." }
     ]
   }
 }

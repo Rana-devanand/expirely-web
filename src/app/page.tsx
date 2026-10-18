@@ -1,17 +1,19 @@
-import { Suspense } from 'react';
 import { Metadata } from 'next';
 import Navbar from '@/components/Navbar';
 import Hero from '@/components/Hero';
-import heroData from '../../data/landing/hero.json';
 import Features from '@/components/Features';
-import featuresData from '../../data/landing/features.json';
+import AiShowcase from '@/components/AiShowcase';
 import HowItWorks from '@/components/HowItWorks';
-import howItWorksData from '../../data/landing/how-it-works.json';
-import Benefits from '@/components/Benefits';
-import benefitsData from '../../data/landing/benefits.json';
+import Testimonials from '@/components/Testimonials';
+import PricingSection from '@/components/PricingSection';
 import FAQ from '@/components/FAQ';
-import faqData from '../../data/landing/faq.json';
 import Footer from '@/components/Footer';
+import { PREMIUM_ENABLED } from '@/lib/flags';
+import heroData from '../../data/landing/hero.json';
+import featuresData from '../../data/landing/features.json';
+import howItWorksData from '../../data/landing/how-it-works.json';
+import testimonialsData from '../../data/landing/testimonials.json';
+import faqData from '../../data/landing/faq.json';
 import footerData from '../../data/landing/footer.json';
 
 export const metadata: Metadata = {
@@ -22,38 +24,20 @@ export const metadata: Metadata = {
 
 export default function Home() {
   return (
-    <div className="min-h-screen" style={{ background: 'var(--gradient-bg)' }}>
+    <div className="min-h-screen">
       <Navbar />
 
       <main>
-        <Suspense
-          fallback={
-            <div className="h-[70vh] flex items-center justify-center animate-pulse bg-slate-100" />
-          }
-        >
-          <Hero data={heroData} />
-        </Suspense>
-
-        <Suspense fallback={<div className="h-[40vh] bg-white" />}>
-          <Features data={featuresData} />
-        </Suspense>
-
-        <Suspense fallback={<div className="h-[40vh] bg-slate-50" />}>
-          <HowItWorks data={howItWorksData} />
-        </Suspense>
-
-        <Suspense fallback={<div className="h-[40vh] bg-slate-50" />}>
-          <Benefits data={benefitsData} />
-        </Suspense>
-
-        <Suspense fallback={<div className="h-[40vh] bg-white" />}>
-          <FAQ data={faqData} />
-        </Suspense>
+        <Hero data={heroData} />
+        <Features data={featuresData} />
+        <AiShowcase />
+        <HowItWorks data={howItWorksData} />
+        <Testimonials data={testimonialsData} />
+        {PREMIUM_ENABLED && <PricingSection />}
+        <FAQ data={{ faq: { ...faqData.faq, questions: faqData.faq.questions.slice(0, 5) } }} />
       </main>
 
-      <Suspense fallback={<div className="h-[20vh] bg-white" />}>
-        <Footer data={footerData} />
-      </Suspense>
+      <Footer data={footerData} />
     </div>
   );
 }

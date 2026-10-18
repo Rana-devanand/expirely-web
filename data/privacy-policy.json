@@ -1,0 +1,118 @@
+{
+  "updated": "October 18, 2026",
+  "intro": "Expirely helps you track the expiry dates of food, medicines and household items. This policy explains what we collect, how our AI features work, who processes your data, and the rights you have under the laws that apply to you.",
+  "sections": [
+    {
+      "title": "1. Information we collect",
+      "body": "We collect only what we need to run the app.",
+      "bullets": [
+        "Account details: name, email address and profile picture (from sign-up or Google Sign-In).",
+        "Inventory data: product names, brands, categories, quantities, weights, prices, barcodes, ingredients, storage place, notes, expiry dates and how an item ended (used, partly used or wasted).",
+        "Photos: pictures you take or choose to scan a product, and product photos you choose to save.",
+        "Household data: if you join a shared household, other members can see your display name and the inventory actions you take.",
+        "Shopping lists, reminder settings, notification preferences and your device time zone.",
+        "Subscription and payment records: plan, amount, currency and date. We never see or store your card number.",
+        "Technical data: device type, app version and error logs, used to keep the service working and secure."
+      ]
+    },
+    {
+      "title": "2. How AI is used in Expirely",
+      "body": "Expirely uses artificial intelligence (AI) to save you typing and to give suggestions. It is important that you know exactly where AI is involved.",
+      "bullets": [
+        "AI product scan: when you scan a product, the photo is sent to our server and then to an AI service, which reads the text on the pack and returns a draft: name, brand, category, dates, quantity, weight, price, barcode, ingredients, key ingredients, allergens and storage advice.",
+        "AI estimated expiry: if a pack shows a manufacturing date but no expiry date, the AI suggests how long that kind of product usually lasts. This is an estimate, not a printed fact. It is never filled in by itself: you must tap to accept it, and the item is marked as AI-estimated.",
+        "Never for medicines and baby products: we do not estimate expiry dates for medicines, vitamins, supplements, baby food or infant formula, because a wrong date could harm someone.",
+        "Other AI tools: recipe ideas, meal plans, storage tips and nutrition insights are generated from the product names and categories in your inventory.",
+        "Receipt scanning reads product names and dates from a receipt photo."
+      ]
+    },
+    {
+      "title": "3. AI limits and your responsibility",
+      "body": "AI can make mistakes, misread blurry or curved labels, or confuse dates. Always check the details against the real pack before you rely on them. Expiry estimates, allergen lists, ingredient lists and nutrition or storage advice are for convenience only. They are not medical, dietary or food-safety advice and do not replace the printed expiry date, the label or a professional. If you have an allergy, a medical condition or you are unsure whether something is safe, follow the pack and ask a qualified person. When in doubt, throw it out."
+    },
+    {
+      "title": "4. How your data goes to AI providers",
+      "body": "To run these features we use trusted AI providers as processors: Anthropic (Claude), Google (Gemini) and Groq. They receive only what is needed for the request: the scan photo, or the product names and categories used for a suggestion. We do not send your name, email or account ID with the photo.",
+      "bullets": [
+        "We do not use your photos or inventory to train our own AI models.",
+        "Our server does not keep the scan photo after the result is returned. A photo is stored only if you save it as the picture of a product.",
+        "The providers process the data under their own terms and security commitments. If one provider is unavailable we may use another one.",
+        "AI results are drafts for you to review. No AI decision has a legal or similarly significant effect on you, and a person (you) always confirms before anything is saved."
+      ]
+    },
+    {
+      "title": "5. How we use your information",
+      "bullets": [
+        "To provide the app, sync your inventory and send expiry alerts and reminders.",
+        "To run the AI features you choose to use.",
+        "To manage households, shopping lists and your analytics dashboard.",
+        "To handle subscriptions, payments, refunds and support requests.",
+        "To keep the service secure, prevent abuse and fix errors.",
+        "To meet our legal obligations."
+      ]
+    },
+    {
+      "title": "6. Legal bases and the laws that apply",
+      "body": "Depending on where you live, we rely on your consent (for example the camera, photo library and notification permissions, and each AI scan you start), on performing our contract with you (running your account and subscription), on our legitimate interests (security and improving the service) and on legal obligations. The main laws that may apply to your data are:",
+      "bullets": [
+        "India: the Digital Personal Data Protection Act, 2023; the Information Technology Act, 2000 and the rules made under it.",
+        "European Union and European Economic Area: the General Data Protection Regulation (GDPR). The EU AI Act also requires that you are told when you interact with AI, which this policy and the app do.",
+        "United Kingdom: the UK GDPR and the Data Protection Act 2018.",
+        "United States: the California Consumer Privacy Act as amended by the CPRA, and similar state privacy laws. We do not sell your personal information or share it for cross-context advertising. The Children's Online Privacy Protection Act (COPPA) is respected: see section 11.",
+        "United Arab Emirates: Federal Decree-Law No. 45 of 2021 on the Protection of Personal Data.",
+        "Saudi Arabia: the Personal Data Protection Law (Royal Decree M/19 of 2021, as amended).",
+        "Canada (PIPEDA), Australia (Privacy Act 1988) and other national laws where you live."
+      ]
+    },
+    {
+      "title": "7. Your rights",
+      "body": "Subject to the law that applies to you, you can:",
+      "bullets": [
+        "Access the personal data we hold about you and get a copy.",
+        "Correct data that is wrong or incomplete. Most of it can be edited in the app.",
+        "Delete your data. Use Profile, then Delete Account. If you have an active subscription, cancel it on the website first. Deleting your account removes your products, notifications, shopping lists and profile.",
+        "Withdraw consent at any time, for example by turning off notifications or camera access in your phone settings. This does not affect what was done before.",
+        "Object to or restrict certain processing, and ask for your data in a portable format (you can already export your inventory as a PDF).",
+        "Ask us about, or object to, any automated processing. We do not make solely automated decisions with legal effects.",
+        "Appoint someone to exercise your rights for you (India), opt out of the sale or sharing of data (California, we do not sell it), and lodge a complaint with your data protection authority.",
+        "To use a right, write to privacy@expirely.foocusedai.com. We aim to reply within 30 days."
+      ]
+    },
+    {
+      "title": "8. Sharing your data",
+      "body": "We do not sell your personal data. We share it only with:",
+      "bullets": [
+        "AI providers (section 4), for the features you use.",
+        "Cloud hosting, database, file storage, push notification and email providers that run the service for us.",
+        "Dodo Payments, which handles checkout and billing as our payment partner and merchant of record.",
+        "Google, for sign-in and, in the free version, for showing ads (Google AdMob). Premium has no ads.",
+        "Members of your household, only what is described in section 1.",
+        "Authorities or advisers when the law requires it, or to protect rights and safety."
+      ]
+    },
+    {
+      "title": "9. Where your data is processed and stored",
+      "body": "Our providers may process data in countries other than yours. Where the law requires it, we rely on safeguards such as standard contractual clauses or adequacy decisions. We keep your data while your account is active. After you delete your account we remove your personal data, except records we must keep for accounting and legal reasons (such as payment records), which are kept without a link to your profile where possible."
+    },
+    {
+      "title": "10. Security",
+      "body": "We use encryption in transit (TLS), access controls and secure cloud databases. No system is perfectly secure. If a breach affects you, we will tell you and the authorities as the law requires. Keep your device and password safe."
+    },
+    {
+      "title": "11. Children",
+      "body": "Expirely is not directed to children under 13 (or under 16 where your law sets that age), and we do not knowingly collect their data. If you believe a child has given us personal data, contact us and we will delete it."
+    },
+    {
+      "title": "12. Ads, notifications and permissions",
+      "body": "Free accounts may see ads from Google AdMob, which can use a device advertising ID. You can reset or limit it in your phone settings. Expiry alerts can be turned off in Profile. Camera, photo library and notification access are optional and can be changed in your phone settings."
+    },
+    {
+      "title": "13. Changes to this policy",
+      "body": "We may update this policy when our features or the law change. For important changes we will notify you in the app. The date at the top shows the latest version."
+    },
+    {
+      "title": "14. Contact and complaints",
+      "body": "Privacy questions, requests and grievances: privacy@expirely.foocusedai.com. You also have the right to complain to your local data protection authority if you think we have not handled your data properly."
+    }
+  ]
+}

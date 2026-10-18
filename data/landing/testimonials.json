@@ -1,0 +1,44 @@
+{
+  "testimonials": {
+    "badge": "Reviews",
+    "title": "What our users say",
+    "items": [
+      {
+        "name": "Oliver Bennett",
+        "role": "Busy Parent, United Kingdom",
+        "rating": 5,
+        "quote": "Expirely makes it so much easier to keep track of food at home. The expiry reminders help me use products on time and waste less food."
+      },
+      {
+        "name": "Sophie Laurent",
+        "role": "Home Cook, France",
+        "rating": 5,
+        "quote": "I love how simple and practical Expirely is. I can organize my groceries, check expiry dates, and feel more in control of my kitchen."
+      },
+      {
+        "name": "Liam Anderson",
+        "role": "Working Professional, Australia",
+        "rating": 5,
+        "quote": "The reminders are incredibly useful for my busy schedule. I no longer have to rely on memory to know which products need to be used first."
+      },
+      {
+        "name": "Emma Fischer",
+        "role": "Family Organizer, Germany",
+        "rating": 5,
+        "quote": "Expirely helps me stay organized and avoid forgetting products in the fridge. It is a small change that makes managing groceries much easier."
+      },
+      {
+        "name": "Noah Williams",
+        "role": "Student, United States",
+        "rating": 5,
+        "quote": "As a student, I want to save money and avoid wasting groceries. Expirely helps me keep an eye on expiry dates without making things complicated."
+      },
+      {
+        "name": "Isabella Rossi",
+        "role": "Health-Conscious Shopper, Italy",
+        "rating": 5,
+        "quote": "I appreciate having my products and expiry dates organized in one place. Expirely makes it easier to plan what to use next and keep my kitchen organized."
+      }
+    ]
+  }
+}

@@ -1,19 +1,13 @@
 {
   "hero": {
-    "badge": "Smart Product Management",
-    "title": "Track Every Expiry",
-    "highlight": "Before It Matters",
-    "description": "Expirely helps you organize groceries, household products, and daily essentials with smart expiry reminders, clear inventory tracking, and timely alerts so you can waste less, save more, and stay in control.",
+    "badge": "Smart expiry tracking",
+    "title": "Track every expiry",
+    "highlight": "before it matters",
+    "description": "Keep groceries, medicines and household items in one place. Expirely reminds you before they expire, so you waste less and save more.",
     "buttons": {
-      "primary": {
-        "text": "Download App",
-        "link": "#"
-      },
-      "secondary": {
-        "text": "Get Started",
-        "link": "#"
-      }
+      "primary": { "text": "Download the app", "link": "https://play.google.com/store/apps/details?id=com.expirely.mobile" },
+      "secondary": { "text": "See how it works", "link": "#how-it-works" }
     },
-    "image": "/mockup-phone.png"
+    "image": "/phone-light.png"
   }
 }

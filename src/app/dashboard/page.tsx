@@ -18,7 +18,8 @@ import {
   ChevronUp,
   X,
   User,
-  FileText
+  FileText,
+  Crown
 } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import Image from 'next/image';
@@ -28,6 +29,7 @@ import { useGetProductsQuery, useCreateProductMutation, useDeleteProductMutation
 import { useGetAllCategoriesQuery, useCreateCategoryMutation, useDeleteCategoryMutation } from '@/store/api/categoryApi';
 import CustomSelect from '@/components/CustomSelect';
 import AdSenseUnit from '@/components/AdSenseUnit';
+import SubscriptionPanel from '@/components/SubscriptionPanel';
 import { toast } from 'react-hot-toast';
 
 export default function UserDashboardPage() {
@@ -44,7 +46,14 @@ export default function UserDashboardPage() {
     return CONFIG.API_URL;
   };
   const [currentUser, setCurrentUser] = useState<any>(null);
-  const [activeTab, setActiveTab] = useState<'products' | 'categories'>('products');
+  const [activeTab, setActiveTab] = useState<'products' | 'categories' | 'subscription'>('products');
+
+  // Deep link from the app: /dashboard?tab=subscription opens the subscription tab.
+  useEffect(() => {
+    if (new URLSearchParams(window.location.search).get('tab') === 'subscription') {
+      setActiveTab('subscription');
+    }
+  }, []);
   
   // Search & Filter state
   const [searchTerm, setSearchTerm] = useState('');
@@ -65,20 +74,26 @@ export default function UserDashboardPage() {
     const toastId = toast.loading('Generating and downloading your PDF report...');
     try {
       const token = localStorage.getItem('accessToken');
-      const response = await fetch(`${getApiUrl()}/products/export/pdf`, {
+      const categoryParam = categoryFilter && categoryFilter !== 'All' ? `?category=${encodeURIComponent(categoryFilter)}` : '';
+      const response = await fetch(`${getApiUrl()}/products/export/pdf${categoryParam}`, {
         method: 'GET',
         headers: {
           'Authorization': `Bearer ${token}`
         }
       });
 
+      if (response.status === 402) {
+        toast.error('PDF export is a Premium feature. Upgrade to download your inventory.', { id: toastId });
+        window.location.href = '/pay';
+        return;
+      }
       if (!response.ok) throw new Error('Failed to download report');
 
       const blob = await response.blob();
       const url = window.URL.createObjectURL(blob);
       const a = document.createElement('a');
       a.href = url;
-      a.download = `expirely_inventory_report_${currentUser?.username?.replace(/\s+/g, '_') || 'user'}_${new Date().toISOString().split('T')[0]}.pdf`;
+      a.download = `expirely_${categoryFilter && categoryFilter !== 'All' ? categoryFilter.replace(/[^a-z0-9]+/gi, '_') : 'inventory'}_${new Date().toISOString().split('T')[0]}.pdf`;
       document.body.appendChild(a);
       a.click();
       window.URL.revokeObjectURL(url);
@@ -477,11 +492,25 @@ export default function UserDashboardPage() {
               <motion.div layoutId="userTab" className="absolute bottom-0 left-0 right-0 h-[2px] bg-emerald-500 rounded-full" />
             )}
           </button>
+          <button
+            onClick={() => setActiveTab('subscription')}
+            className={`pb-3 text-xs font-bold uppercase tracking-widest transition-colors flex items-center gap-1.5 shrink-0 relative ${
+              activeTab === 'subscription' ? 'text-emerald-650' : 'text-slate-400 hover:text-slate-650'
+            }`}
+          >
+            <Crown className="w-4.5 h-4.5" />
+            Subscription
+            {activeTab === 'subscription' && (
+              <motion.div layoutId="userTab" className="absolute bottom-0 left-0 right-0 h-[2px] bg-emerald-500 rounded-full" />
+            )}
+          </button>
         </div>
 
         {/* Tab Contents */}
         <div className="min-h-[400px]">
-          {isProductsLoading || isCategoriesLoading ? (
+          {activeTab === 'subscription' ? (
+            <SubscriptionPanel tone="light" />
+          ) : isProductsLoading || isCategoriesLoading ? (
             <div className="flex flex-col items-center justify-center py-20 gap-3">
               <Loader2 className="w-8 h-8 text-emerald-500 animate-spin" />
               <p className="text-slate-400 text-xs font-bold uppercase tracking-widest">Loading Dashboard Data...</p>
@@ -581,7 +610,12 @@ export default function UserDashboardPage() {
                         ) : (
                           <FileText className="w-3.5 h-3.5 text-slate-500" />
                         )}
-                        <span className="hidden sm:inline">Export PDF</span>
+                        <span className="hidden sm:inline">
+                          {categoryFilter && categoryFilter !== 'All' ? `Export ${categoryFilter} PDF` : 'Export PDF'}
+                        </span>
+                        <span className="rounded-full bg-emerald-500 px-1.5 py-0.5 text-[9px] font-extrabold uppercase tracking-wide text-white">
+                          Premium
+                        </span>
                       </button>
                     </div>
                   </div>

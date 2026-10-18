@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" width="256" height="256">
+  <defs>
+    <linearGradient id="box" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#FFF4E0"/><stop offset="1" stop-color="#F3DDB8"/></linearGradient>
+    <linearGradient id="side" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#F0C888"/><stop offset="1" stop-color="#D9A862"/></linearGradient>
+    <radialGradient id="orange" cx="0.4" cy="0.35" r="0.8"><stop offset="0" stop-color="#FFB347"/><stop offset="1" stop-color="#F07C12"/></radialGradient>
+  </defs>
+  <ellipse cx="128" cy="238" rx="74" ry="9" fill="#000" opacity="0.35"/>
+  <!-- roof -->
+  <path d="M70 62 L128 26 L186 62 L186 84 L70 84 Z" fill="#F3DDB8"/>
+  <path d="M128 26 L186 62 L128 78 L70 62 Z" fill="#FFF4E0"/>
+  <rect x="116" y="18" width="24" height="12" rx="3" fill="#2B7A4B"/>
+  <!-- body -->
+  <rect x="70" y="84" width="88" height="148" fill="url(#box)"/>
+  <path d="M158 84 L186 70 V218 L158 232 Z" fill="url(#side)"/>
+  <!-- label -->
+  <circle cx="114" cy="146" r="34" fill="url(#orange)"/>
+  <path d="M108 118 C112 108 124 106 132 112 C124 120 116 122 108 118 Z" fill="#3E9B3E"/>
+  <circle cx="106" cy="138" r="7" fill="#fff" opacity="0.25"/>
+  <rect x="86" y="190" width="56" height="8" rx="4" fill="#E27A12"/>
+  <rect x="94" y="204" width="40" height="6" rx="3" fill="#EBA64B"/>
+</svg>

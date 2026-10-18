@@ -2,8 +2,9 @@
 @import "../styles/theme.css";
 
 :root {
-  --background: #080d1e;
-  --foreground: #f1f5f9;
+  --background: var(--color-bg);
+  --foreground: var(--color-text);
+  color-scheme: dark;
 }
 
 @theme inline {
@@ -13,6 +14,11 @@
   --font-mono: var(--font-geist-mono);
 }
 
+html {
+  scroll-behavior: smooth;
+  background: #000;
+}
+
 body {
   background: var(--background);
   color: var(--foreground);
@@ -20,104 +26,50 @@ body {
   overflow-x: hidden;
 }
 
-/* Custom Utilities for Premium Visual Design */
-
-.glow-blob {
-  position: absolute;
-  border-radius: 50%;
-  filter: blur(120px);
-  pointer-events: none;
-  z-index: 0;
-  opacity: 0.55;
-  transition: all 0.5s ease-in-out;
+::selection {
+  background: rgba(127, 176, 255, 0.35);
 }
 
-.glass-card {
-  background: rgba(255, 255, 255, 0.05);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-  border: 1px solid rgba(168, 85, 247, 0.18);
-  box-shadow: 0 12px 36px 0 rgba(0, 0, 0, 0.4);
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+/* Section eyebrow label */
+.eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 14px;
+  border-radius: 9999px;
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #a9c9ff;
+  background: rgba(255, 255, 255, 0.07);
+  border: 1px solid rgba(255, 255, 255, 0.13);
 }
 
 .glass-card-hover:hover {
-  border-color: rgba(168, 85, 247, 0.36);
-  box-shadow: 0 18px 42px 0 rgba(168, 85, 247, 0.15);
-  background: rgba(255, 255, 255, 0.08);
+  border-color: rgba(127, 176, 255, 0.4);
+  background: var(--surface-glass-hover);
 }
 
-.grid-backdrop {
-  background-image:
-    linear-gradient(rgba(168, 85, 247, 0.06) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(168, 85, 247, 0.06) 1px, transparent 1px);
-  background-size: 50px 50px;
-  background-position: center;
-}
-
+/* Legacy helpers still referenced by a few pages */
+.glow-blob { display: none; }
+.grid-backdrop { background-image: none; }
 .text-gradient-emerald {
-  background: linear-gradient(135deg, #f1f5f9 40%, #d8b4fe 70%, #a855f7 100%);
+  background: linear-gradient(110deg, #ffffff 0%, #a9c9ff 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
 }
-
-.badge-shine {
-  background: linear-gradient(90deg,
-    rgba(168, 85, 247, 0.08) 0%,
-    rgba(192, 132, 252, 0.22) 50%,
-    rgba(168, 85, 247, 0.08) 100%
-  );
-  background-size: 200% 100%;
-  animation: shine 4s infinite linear;
-}
-
+.badge-shine { background: rgba(255, 255, 255, 0.07); }
 @keyframes shine {
   0%   { background-position: -200% 0; }
   100% { background-position:  200% 0; }
 }
-
 .public-wave-page,
-.public-wave-section {
-  position: relative;
-  overflow: hidden;
-}
+.public-wave-section { position: relative; }
 
-.public-wave-page > *,
-.public-wave-section > * {
-  position: relative;
-  z-index: 1;
-}
-
-.public-wave-page::before,
-.public-wave-section::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-  z-index: 0;
-  opacity: 0.28;
-  background:
-    url("data:image/svg+xml,%3Csvg width='1440' height='260' viewBox='0 0 1440 260' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0 128C160 96 272 86 420 116C590 151 700 188 890 149C1070 112 1232 78 1440 118V260H0V128Z' fill='%23A855F7' fill-opacity='0.09'/%3E%3Cpath d='M0 166C180 138 316 150 470 178C630 207 780 216 938 180C1118 139 1268 130 1440 160V260H0V166Z' fill='%236366F1' fill-opacity='0.08'/%3E%3Cpath d='M0 205C198 176 342 200 526 214C730 230 870 205 1040 185C1205 165 1322 180 1440 204V260H0V205Z' fill='%23C084FC' fill-opacity='0.06'/%3E%3C/svg%3E");
-  background-repeat: no-repeat;
-  background-size: 100% 260px;
-  background-position: center bottom;
-}
-
-.public-wave-page::after,
-.public-wave-section::after {
-  content: "";
-  position: absolute;
-  inset: auto 0 0;
-  height: 220px;
-  pointer-events: none;
-  z-index: 0;
-  opacity: 0.18;
-  background: linear-gradient(180deg, transparent 0%, rgba(168, 85, 247, 0.08) 55%, rgba(99, 102, 241, 0.04) 100%);
-}
-
-.public-wave-page::before {
-  opacity: 0.22;
-  background-size: 120% 260px;
-  background-position: center bottom;
+/* Autofill keeps a dark field instead of the browser's pale yellow */
+input:-webkit-autofill {
+  -webkit-text-fill-color: #fff;
+  box-shadow: 0 0 0 1000px #0b0f1a inset;
 }

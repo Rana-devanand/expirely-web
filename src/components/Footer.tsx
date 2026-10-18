@@ -1,110 +1,91 @@
 import Link from 'next/link';
 import Image from 'next/image';
-import { ChevronRight, Mail } from 'lucide-react';
+import { ArrowRight, Mail } from 'lucide-react';
+import { PREMIUM_ENABLED } from '@/lib/flags';
 
 interface FooterProps {
   data: {
     footer: {
-      cta: { title: string; description: string; button: { text: string; link: string }; };
-      brand: { name: string; description: string; };
-      links: { title: string; items: { name: string; href: string }[]; }[];
-      contact: { title: string; email: string; adminLogin: string; };
+      cta: { title: string; description: string; button: { text: string; link: string } };
+      brand: { name: string; description: string };
+      links: { title: string; items: { name: string; href: string }[] }[];
+      contact: { title: string; email: string; adminLogin: string };
       copyright: string;
     };
   };
+  // Pages that already end with their own call to action can hide this one.
+  hideCta?: boolean;
 }
 
-export default function Footer({ data }: FooterProps) {
+// Full-width footer: the bands run edge to edge, content is centered inside.
+export default function Footer({ data, hideCta = false }: FooterProps) {
   const { footer } = data;
 
   return (
-    <footer className="border-t" style={{ borderColor: 'rgba(168,85,247,0.15)', background: 'var(--navy-950)' }}>
-      {/* CTA strip */}
-      <div className="relative overflow-hidden border-b py-16"
-        style={{ borderColor: 'rgba(168,85,247,0.15)', background: 'rgba(168,85,247,0.06)' }}>
-        <div className="pointer-events-none absolute top-1/2 left-1/2 h-[200px] w-[500px] -translate-x-1/2 -translate-y-1/2 rounded-full blur-[100px]"
-          style={{ background: 'rgba(168,85,247,0.15)' }} />
-        <div className="relative z-10 mx-auto max-w-4xl px-4 text-center">
-          <h2 className="mb-6 text-2xl font-extrabold tracking-tight md:text-4xl"
-            style={{ color: 'var(--color-text)' }}>
-            {footer.cta.title}
-          </h2>
-          <p className="mx-auto mb-8 max-w-xl text-sm leading-relaxed md:text-base"
-            style={{ color: 'var(--color-text-muted)' }}>
-            {footer.cta.description}
-          </p>
-          <Link
-            href="/onboarding"
-            className="group mx-auto flex w-fit items-center gap-2 rounded-full px-8 py-3.5 text-base font-bold text-white transition-all hover:-translate-y-0.5 active:scale-95"
-            style={{ background: 'var(--gradient-brand)', boxShadow: 'var(--shadow-brand-lg)' }}
-          >
-            Get Started Free
-            <ChevronRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
-          </Link>
-        </div>
-      </div>
-
-      {/* Footer grid */}
-      <div className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-1 gap-12 md:grid-cols-2 lg:grid-cols-4">
-          {/* Brand */}
-          <div className="space-y-6">
-            <Link href="/" className="group flex items-center gap-2">
-              <div className="relative h-9 w-9 overflow-hidden rounded-xl border"
-                style={{ borderColor: 'rgba(168,85,247,0.25)', background: 'rgba(168,85,247,0.1)' }}>
-                <Image src="/logo1.png" alt="Expirely" fill className="object-cover" />
-              </div>
-              <span className="text-xl font-bold" style={{ color: 'var(--color-text)' }}>
-                {footer.brand.name}
-              </span>
+    <footer className="mt-16 w-full border-t border-white/10 bg-black">
+      {!hideCta && (
+        <div className="relative w-full overflow-hidden border-b border-white/10 bg-gradient-to-br from-[#1E50A2] via-[#17408A] to-[#0E2147] px-4 py-16 text-center sm:px-6">
+          <div className="pointer-events-none absolute -left-20 -top-20 h-72 w-72 rounded-full bg-[#F09199]/25 blur-3xl" />
+          <div className="pointer-events-none absolute -bottom-24 -right-10 h-80 w-80 rounded-full bg-[#895B8A]/35 blur-3xl" />
+          <div className="relative mx-auto max-w-3xl">
+            <h2 className="text-3xl font-black tracking-tight text-white sm:text-4xl">{footer.cta.title}</h2>
+            <p className="mx-auto mt-4 max-w-xl text-base font-medium text-white/80">{footer.cta.description}</p>
+            <Link
+              href={footer.cta.button.link}
+              className="mx-auto mt-8 inline-flex items-center gap-2 rounded-full bg-white px-8 py-4 text-sm font-extrabold text-[#0E2147] transition hover:-translate-y-0.5 active:scale-95"
+            >
+              {footer.cta.button.text}
+              <ArrowRight className="h-4 w-4" />
             </Link>
-            <p className="max-w-xs text-[13px] leading-relaxed" style={{ color: 'var(--color-text-muted)' }}>
-              {footer.brand.description}
-            </p>
+          </div>
+        </div>
+      )}
+
+      <div className="mx-auto w-full max-w-7xl px-4 py-14 sm:px-6 lg:px-8">
+        <div className="grid gap-10 sm:grid-cols-2 lg:grid-cols-5">
+          <div className="space-y-4 lg:col-span-2">
+            <Link href="/" className="flex items-center gap-2.5">
+              <span className="relative h-9 w-9 overflow-hidden rounded-xl">
+                <Image src="/logo1.png" alt="Expirely" fill className="object-cover" />
+              </span>
+              <span className="text-lg font-extrabold text-white">{footer.brand.name}</span>
+            </Link>
+            <p className="max-w-xs text-sm font-medium leading-relaxed text-white/60">{footer.brand.description}</p>
+            <a
+              href={`mailto:${footer.contact.email}`}
+              className="inline-flex items-center gap-2 text-sm font-semibold text-white/70 transition-colors hover:text-white"
+            >
+              <Mail className="h-4 w-4 text-[#7FB0FF]" />
+              {footer.contact.email}
+            </a>
           </div>
 
-          {/* Link groups */}
-          {footer.links.map((group, index) => (
-            <div key={index} className="space-y-6">
-              <h4 className="text-sm font-bold uppercase tracking-wider" style={{ color: 'var(--color-text)' }}>
-                {group.title}
-              </h4>
-              <ul className="space-y-3">
-                {group.items.map((link, linkIndex) => (
-                  <li key={linkIndex}>
-                    <Link href={link.href}
-                      className="text-sm transition-colors hover:opacity-90"
-                      style={{ color: 'var(--color-text-muted)' }}
-                      // onMouseEnter={(e) => (e.currentTarget as HTMLElement).style.color = 'var(--brand-400)'}
-                      // onMouseLeave={(e) => (e.currentTarget as HTMLElement).style.color = 'var(--color-text-muted)'}
-                    >
-                      {link.name}
-                    </Link>
-                  </li>
-                ))}
+          {footer.links.map((group) => (
+            <div key={group.title} className="space-y-4">
+              <h4 className="text-xs font-extrabold uppercase tracking-wider text-white">{group.title}</h4>
+              <ul className="space-y-2.5">
+                {group.items
+                  .filter((link) => PREMIUM_ENABLED || link.href !== '/pricing')
+                  .map((link) => (
+                    <li key={link.href}>
+                      <Link
+                        href={link.href}
+                        className="text-sm font-semibold text-white/60 transition-colors hover:text-white"
+                      >
+                        {link.name}
+                      </Link>
+                    </li>
+                  ))}
               </ul>
             </div>
           ))}
-
-          {/* Contact */}
-          <div className="space-y-6">
-            <h4 className="text-sm font-bold uppercase tracking-wider" style={{ color: 'var(--color-text)' }}>
-              {footer.contact.title}
-            </h4>
-            <ul className="space-y-3">
-              <li>
-                <div className="flex items-center gap-2 text-sm" style={{ color: 'var(--color-text-muted)' }}>
-                  <Mail className="h-4 w-4" style={{ color: 'var(--brand-400)' }} />
-                  <span>{footer.contact.email}</span>
-                </div>
-              </li>
-            </ul>
-          </div>
         </div>
+      </div>
 
-        <div className="mt-16 flex flex-col items-center justify-center gap-4 border-t pt-8 text-center md:flex-row"
-          style={{ borderColor: 'rgba(168,85,247,0.12)' }}>
-          <p className="text-xs" style={{ color: 'var(--color-text-subtle)' }}>© {footer.copyright}</p>
+      <div className="w-full border-t border-white/10">
+        <div className="mx-auto flex max-w-7xl flex-col items-center justify-between gap-2 px-4 py-6 text-center sm:flex-row sm:px-6 lg:px-8">
+          <p className="text-xs font-semibold text-white/45">© {footer.copyright}</p>
+          <p className="text-xs font-semibold text-white/45">Made to help you waste less.</p>
         </div>
       </div>
     </footer>

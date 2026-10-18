@@ -15,7 +15,7 @@ const geistMono = Geist_Mono({
 });
 
 export const viewport: Viewport = {
-  themeColor: "#f8fafc",
+  themeColor: "#000000",
 };
 
 export const metadata: Metadata = {
@@ -70,7 +70,7 @@ export default function RootLayout({
         />
       )}
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        className={`${geistSans.variable} ${geistMono.variable} bg-black text-white antialiased`}
       >
         <StoreProvider>
           <Toaster 
@@ -78,13 +78,13 @@ export default function RootLayout({
             toastOptions={{
               duration: 4000,
               style: {
-                background: '#ffffff',
-                color: '#0f172a',
-                border: '1px solid #e2e8f0',
+                background: '#11151f',
+                color: '#ffffff',
+                border: '1px solid rgba(255,255,255,0.14)',
               },
               success: {
                 iconTheme: {
-                  primary: '#10b981',
+                  primary: '#1E50A2',
                   secondary: '#ffffff',
                 },
               },

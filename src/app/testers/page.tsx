@@ -12,12 +12,12 @@ export const metadata: Metadata = {
 
 export default function TestersPage() {
   return (
-    <div className="min-h-screen bg-[#020617] flex flex-col">
+    <div className="min-h-screen flex flex-col">
       <Navbar />
-      <main className="flex-1 flex items-center justify-center p-4 pt-32 pb-20 bg-[#020617]">
+      <main className="flex-1 flex items-center justify-center p-4 pt-32 pb-20">
         <TesterForm />
       </main>
-      <Suspense fallback={<div className="h-[20vh] bg-[#020617]" />}>
+      <Suspense fallback={<div className="h-[20vh]" />}>
         <Footer data={footerData} />
       </Suspense>
     </div>

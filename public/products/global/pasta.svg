@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" width="256" height="256">
+  <defs>
+    <linearGradient id="bowl" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#FFFFFF"/><stop offset="1" stop-color="#CBD5E5"/></linearGradient>
+    <linearGradient id="noodle" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#FFE08A"/><stop offset="1" stop-color="#E9B94A"/></linearGradient>
+  </defs>
+  <ellipse cx="128" cy="232" rx="84" ry="9" fill="#000" opacity="0.35"/>
+  <path d="M34 120 H222 C222 188 184 222 128 222 C72 222 34 188 34 120 Z" fill="url(#bowl)"/>
+  <ellipse cx="128" cy="120" rx="94" ry="26" fill="#EEF2F9"/>
+  <ellipse cx="128" cy="118" rx="82" ry="20" fill="#E9B94A"/>
+  <g fill="none" stroke="url(#noodle)" stroke-width="7" stroke-linecap="round">
+    <path d="M60 112 C80 80 112 74 128 90 C146 106 176 80 198 106"/>
+    <path d="M70 126 C92 96 120 92 136 104 C154 118 180 96 192 120"/>
+    <path d="M82 104 C100 70 140 66 156 86 C168 100 182 94 190 100"/>
+    <path d="M96 118 C112 98 134 98 146 110"/>
+  </g>
+  <path d="M104 96 C100 84 112 70 128 74 C146 78 150 94 140 102 C126 110 108 108 104 96 Z" fill="#D8412F"/>
+  <path d="M150 78 C166 64 186 68 190 80 C176 90 160 90 150 78 Z" fill="#3E9B3E"/>
+  <path d="M150 78 C162 76 176 78 188 80" fill="none" stroke="#2B7A2B" stroke-width="2"/>
+</svg>

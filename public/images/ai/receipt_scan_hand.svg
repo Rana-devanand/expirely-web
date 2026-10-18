@@ -1,0 +1,137 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 640" width="640" height="640" role="img" aria-label="A hand holding a phone that scans a grocery receipt and lists the items on screen">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#0A1020"/>
+      <stop offset="1" stop-color="#14264A"/>
+    </linearGradient>
+    <radialGradient id="glow" cx="0.62" cy="0.38" r="0.6">
+      <stop offset="0" stop-color="#3A74D9" stop-opacity="0.55"/>
+      <stop offset="1" stop-color="#3A74D9" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="beam" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#7FB0FF" stop-opacity="0.55"/>
+      <stop offset="1" stop-color="#7FB0FF" stop-opacity="0.04"/>
+    </linearGradient>
+    <linearGradient id="phone" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#2B3347"/>
+      <stop offset="1" stop-color="#0E1220"/>
+    </linearGradient>
+    <linearGradient id="skin" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#F0C2A2"/>
+      <stop offset="1" stop-color="#D99A78"/>
+    </linearGradient>
+    <linearGradient id="paper" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#FFFFFF"/>
+      <stop offset="1" stop-color="#E7ECF5"/>
+    </linearGradient>
+    <filter id="soft" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="14" stdDeviation="14" flood-color="#000" flood-opacity="0.5"/>
+    </filter>
+  </defs>
+
+  <rect width="640" height="640" fill="url(#bg)"/>
+  <rect width="640" height="640" fill="url(#glow)"/>
+
+  <!-- table -->
+  <path d="M0 520 Q320 470 640 520 V640 H0 Z" fill="#0B1430" opacity="0.9"/>
+
+  <!-- receipt -->
+  <g transform="rotate(-7 190 470)" filter="url(#soft)">
+    <path d="M70 330 H310 V610 L295 600 L280 610 L265 600 L250 610 L235 600 L220 610 L205 600 L190 610 L175 600 L160 610 L145 600 L130 610 L115 600 L100 610 L85 600 L70 610 Z" fill="url(#paper)"/>
+    <text x="190" y="362" text-anchor="middle" font-family="Arial, sans-serif" font-weight="700" font-size="15" fill="#1B2438">FRESH MARKET</text>
+    <rect x="95" y="374" width="190" height="2" fill="#C5CDDC"/>
+    <g font-family="Arial, sans-serif" font-size="13" fill="#2A3550">
+      <text x="95" y="402">Whole Milk 1L</text><text x="285" y="402" text-anchor="end">2.49</text>
+      <text x="95" y="432">Free Range Eggs</text><text x="285" y="432" text-anchor="end">3.99</text>
+      <text x="95" y="462">Sourdough Bread</text><text x="285" y="462" text-anchor="end">3.20</text>
+      <text x="95" y="492">Greek Yogurt</text><text x="285" y="492" text-anchor="end">1.89</text>
+      <text x="95" y="522">Cheddar Cheese</text><text x="285" y="522" text-anchor="end">4.50</text>
+    </g>
+    <rect x="95" y="540" width="190" height="2" fill="#C5CDDC"/>
+    <text x="95" y="566" font-family="Arial, sans-serif" font-weight="700" font-size="14" fill="#1B2438">TOTAL</text>
+    <text x="285" y="566" text-anchor="end" font-family="Arial, sans-serif" font-weight="700" font-size="14" fill="#1B2438">16.07</text>
+    <!-- highlighted rows being read -->
+    <rect x="88" y="388" width="204" height="20" rx="4" fill="#3A74D9" opacity="0.22"/>
+    <rect x="88" y="418" width="204" height="20" rx="4" fill="#3A74D9" opacity="0.22"/>
+    <rect x="88" y="448" width="204" height="20" rx="4" fill="#3A74D9" opacity="0.22"/>
+  </g>
+
+  <!-- scan beam from phone to receipt -->
+  <path d="M345 245 L130 400 L330 372 Z" fill="url(#beam)"/>
+  <path d="M345 245 L130 400" stroke="#9CC2FF" stroke-width="1.5" stroke-dasharray="5 5" opacity="0.8"/>
+  <path d="M345 245 L330 372" stroke="#9CC2FF" stroke-width="1.5" stroke-dasharray="5 5" opacity="0.8"/>
+
+  <!-- hand + phone -->
+  <g transform="rotate(10 440 330)" filter="url(#soft)">
+    <!-- palm / wrist -->
+    <path d="M395 470 C380 520 385 580 395 640 L535 640 C540 590 548 530 530 470 Z" fill="url(#skin)"/>
+    <!-- phone body -->
+    <rect x="352" y="120" width="204" height="372" rx="30" fill="url(#phone)" stroke="#4A556E" stroke-width="2"/>
+    <rect x="362" y="130" width="184" height="352" rx="22" fill="#0A0F1C"/>
+    <rect x="428" y="138" width="52" height="9" rx="4.5" fill="#1C2438"/>
+    <!-- screen header -->
+    <text x="376" y="176" font-family="Arial, sans-serif" font-weight="700" font-size="13" fill="#FFFFFF">Scanned items</text>
+    <rect x="474" y="162" width="62" height="20" rx="10" fill="#1E50A2"/>
+    <text x="505" y="176" text-anchor="middle" font-family="Arial, sans-serif" font-weight="700" font-size="10" fill="#FFFFFF">5 found</text>
+    <!-- list rows -->
+    <g font-family="Arial, sans-serif">
+      <g>
+        <rect x="374" y="194" width="160" height="46" rx="12" fill="#141C30"/>
+        <circle cx="395" cy="217" r="12" fill="#2A62BE"/><rect x="389" y="209" width="12" height="16" rx="2" fill="#fff"/>
+        <text x="414" y="213" font-size="12" font-weight="700" fill="#fff">Whole Milk</text>
+        <text x="414" y="228" font-size="10" fill="#8FA3C8">Dairy · 1 L</text>
+        <rect x="487" y="206" width="40" height="18" rx="9" fill="#17402F"/><text x="507" y="219" text-anchor="middle" font-size="9" font-weight="700" fill="#6CE9A6">5 days</text>
+      </g>
+      <g>
+        <rect x="374" y="246" width="160" height="46" rx="12" fill="#141C30"/>
+        <circle cx="395" cy="269" r="12" fill="#C88A3A"/><ellipse cx="395" cy="269" rx="6" ry="8" fill="#FFF3D6"/>
+        <text x="414" y="265" font-size="12" font-weight="700" fill="#fff">Eggs</text>
+        <text x="414" y="280" font-size="10" fill="#8FA3C8">Dairy · 6 pcs</text>
+        <rect x="487" y="258" width="40" height="18" rx="9" fill="#17402F"/><text x="507" y="271" text-anchor="middle" font-size="9" font-weight="700" fill="#6CE9A6">14 days</text>
+      </g>
+      <g>
+        <rect x="374" y="298" width="160" height="46" rx="12" fill="#141C30"/>
+        <circle cx="395" cy="321" r="12" fill="#B9773F"/><path d="M386 324 Q395 310 404 324 Z" fill="#F3D3A0"/>
+        <text x="414" y="317" font-size="12" font-weight="700" fill="#fff">Sourdough</text>
+        <text x="414" y="332" font-size="10" fill="#8FA3C8">Bakery · 1 loaf</text>
+        <rect x="487" y="310" width="40" height="18" rx="9" fill="#4A3510"/><text x="507" y="323" text-anchor="middle" font-size="9" font-weight="700" fill="#FEC84B">2 days</text>
+      </g>
+      <g>
+        <rect x="374" y="350" width="160" height="46" rx="12" fill="#141C30"/>
+        <circle cx="395" cy="373" r="12" fill="#5C7FC4"/><rect x="388" y="367" width="14" height="12" rx="3" fill="#fff"/>
+        <text x="414" y="369" font-size="12" font-weight="700" fill="#fff">Greek Yogurt</text>
+        <text x="414" y="384" font-size="10" fill="#8FA3C8">Dairy · 500 g</text>
+        <rect x="487" y="362" width="40" height="18" rx="9" fill="#17402F"/><text x="507" y="375" text-anchor="middle" font-size="9" font-weight="700" fill="#6CE9A6">9 days</text>
+      </g>
+      <g>
+        <rect x="374" y="402" width="160" height="38" rx="12" fill="#141C30"/>
+        <circle cx="395" cy="421" r="12" fill="#E3A22B"/><path d="M386 425 L404 425 L395 412 Z" fill="#FFE08A"/>
+        <text x="414" y="425" font-size="12" font-weight="700" fill="#fff">Cheddar</text>
+        <rect x="487" y="412" width="40" height="18" rx="9" fill="#17402F"/><text x="507" y="425" text-anchor="middle" font-size="9" font-weight="700" fill="#6CE9A6">21 days</text>
+      </g>
+    </g>
+    <!-- add button -->
+    <rect x="374" y="448" width="160" height="28" rx="14" fill="#2A62BE"/>
+    <text x="454" y="466" text-anchor="middle" font-family="Arial, sans-serif" font-weight="700" font-size="12" fill="#fff">Add all to inventory</text>
+
+    <!-- fingers on the right edge -->
+    <g fill="url(#skin)" stroke="#C48863" stroke-width="1">
+      <rect x="538" y="210" width="40" height="30" rx="15"/>
+      <rect x="540" y="250" width="42" height="32" rx="16"/>
+      <rect x="538" y="292" width="40" height="30" rx="15"/>
+      <rect x="532" y="332" width="36" height="28" rx="14"/>
+    </g>
+    <!-- thumb on the left edge -->
+    <path d="M360 400 C335 405 326 430 342 452 C352 466 372 470 384 456 C392 446 386 420 374 410 Z" fill="url(#skin)" stroke="#C48863" stroke-width="1"/>
+  </g>
+
+  <!-- connecting data lines from receipt to phone list -->
+  <g fill="none" stroke="#7FB0FF" stroke-width="1.6" stroke-dasharray="4 5" opacity="0.85">
+    <path d="M300 396 C330 380 345 330 372 232"/>
+    <path d="M300 426 C335 410 350 360 376 290"/>
+    <path d="M300 456 C340 440 352 400 378 346"/>
+  </g>
+  <g fill="#7FB0FF">
+    <circle cx="300" cy="396" r="4"/><circle cx="300" cy="426" r="4"/><circle cx="300" cy="456" r="4"/>
+  </g>
+</svg>

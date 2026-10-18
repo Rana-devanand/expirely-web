@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" width="256" height="256">
+  <defs>
+    <linearGradient id="skin" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#3F7D2C"/><stop offset="1" stop-color="#1F4A18"/></linearGradient>
+    <radialGradient id="flesh" cx="0.5" cy="0.45" r="0.6"><stop offset="0" stop-color="#E8F29A"/><stop offset="0.7" stop-color="#B8D45A"/><stop offset="1" stop-color="#7FA83A"/></radialGradient>
+    <radialGradient id="pit" cx="0.35" cy="0.3" r="0.8"><stop offset="0" stop-color="#B07A4A"/><stop offset="1" stop-color="#5E3A1E"/></radialGradient>
+  </defs>
+  <ellipse cx="128" cy="236" rx="70" ry="9" fill="#000" opacity="0.35"/>
+  <path d="M128 18 C170 18 196 70 204 120 C214 180 186 232 128 232 C70 232 42 180 52 120 C60 70 86 18 128 18 Z" fill="url(#skin)"/>
+  <path d="M128 34 C162 34 184 78 191 124 C199 176 176 218 128 218 C80 218 57 176 65 124 C72 78 94 34 128 34 Z" fill="url(#flesh)"/>
+  <circle cx="128" cy="150" r="42" fill="url(#pit)"/>
+  <ellipse cx="116" cy="136" rx="13" ry="9" fill="#fff" opacity="0.25"/>
+</svg>
